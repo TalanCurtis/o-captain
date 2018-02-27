@@ -39,6 +39,7 @@ app.use((req, res, next) => {
 
 // Controller Imports
 const test_controller = require('./controllers/test_controller')
+const teacher_controller = require('./controllers/teacher_controller')
 
 // Endpoints
 //// test endpoint
@@ -58,6 +59,10 @@ app.get('/auth/me', (req, res) => {
         res.status(200).send(req.session.user)
     }
 })
+
+//// Teacher
+app.get('/api/teacher/:id', teacher_controller.getAll)
+
 // Run Server
 app.listen(SERVER_PORT, ()=>(console.log(`Sailing on port: ${SERVER_PORT}`)))
 

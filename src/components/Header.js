@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUser } from '../reducers/user_reducer';
+import { getClasses } from '../reducers/classes_reducer';
 
 class Header extends Component {
     componentDidMount() {
         // TODO : Auth me. Make sure user is authorized and authenticated
-        this.props.getUser()
-        console.log('header mounted')
+        // Get User info then get all my class information from db with that user id.
+        this.props.getUser().then(res=> this.props.getClasses(this.props.user.id))
     }
 
     handleLogout() {
@@ -20,7 +21,7 @@ class Header extends Component {
         return (
             <div className='Header'>
                 <button onClick={() => this.handleBack()}>Back</button>
-                <h1>{this.props.user.info.first_name}</h1>
+                <h1>{this.props.user.first_name}</h1>
                 <button onClick={() => this.handleLogout()}>Logout</button>
             </div>
         )
@@ -28,7 +29,8 @@ class Header extends Component {
 }
 
 const outputActions = {
-    getUser
+    getUser,
+    getClasses
 }
 
 function mapStateToProps(state) {

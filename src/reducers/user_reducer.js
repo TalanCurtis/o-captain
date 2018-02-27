@@ -2,17 +2,13 @@ import axios from 'axios';
 
 // Initial State
 const initialState = {
-    username: '',
-    info: {
-        id: 0,
-        role: 'placeholder',
-        user_name: "placeholder",
-        first_name: "placeholder",
-        last_name: "placeholder",
-        email: "placeholder@gmail.com",
-        img: "placeholder"
-    }
-
+    id: 0,
+    role: 'placeholder',
+    user_name: "placeholder",
+    first_name: "placeholder",
+    last_name: "placeholder",
+    email: "placeholder@gmail.com",
+    img: "placeholder"
 }
 // Actions Consts
 const GET_USER = 'GET_USER';
@@ -40,7 +36,7 @@ export function getInfo() {
 export default function (state = initialState, action) {
     switch (action.type) {
         case GET_USER + '_FULFILLED':
-            return Object.assign({}, state, { info: action.payload })
+            return Object.assign({}, state, action.payload)
         case GET_INFO:
             return Object.assign({}, state, { getinfo: action.payload })
         default:
