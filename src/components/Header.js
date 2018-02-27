@@ -21,7 +21,7 @@ class Header extends Component {
         return (
             <div className='Header'>
                 <button onClick={() => this.handleBack()}>Back</button>
-                <h1>{this.props.user.first_name}</h1>
+                <h1>{this.props.title}</h1>
                 <button onClick={() => this.handleLogout()}>Logout</button>
             </div>
         )

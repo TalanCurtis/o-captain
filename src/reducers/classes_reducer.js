@@ -29,22 +29,82 @@ export function getClasses(id) {
         "mark_student_id": 11
     },
      */
-    let classes = [];
-    classes = axios.get('/api/teacher/' + id).then(res => {
-        console.log('hit reducer getclasses')
-        return res.data.slice(0,20)
-    })
-    // make new arrays from data and set them to state.
-    // for(let i in classes){
+    //let classes = [];
+    let classes = axios.get('/api/teacher/' + id).then(res => {
+        console.log('hit reducer get classes')
+        
+        // make new arrays from data and set them to state.
+        // create a new list of classes
+        let newClasses = []
+        for (let i in res.data) {
+            if (!newClasses.some(x => x.class_id === res.data[i].class_id)) {
+                newClasses.push({
+                    class_id: res.data[i].class_id,
+                    class_name: res.data[i].class_name,
+                    students: [],
+                    assignments: []
+                })
+            }
+        }
+        // Assigning each student to their corresponding classes.
+        for (let j in newClasses) {
+            for (let i in res.data) {
+                if (newClasses[j].class_id === res.data[i].class_id) {
+                    if (!newClasses[j].students.some(x => x.student_id === res.data[i].student_id)) {
+                        newClasses[j].students.push({
+                            student_id: res.data[i].student_id,
+                            first_name: res.data[i].student_first_name,
+                            last_name: res.data[i].student_last_name,
+                            marks: []
+                        })
+                    }
+                }
+            }
+        }
+        // Assign assignments to corresponding classes
+        for (let j in newClasses) {
+            for (let i in res.data) {
+                if (newClasses[j].class_id === res.data[i].class_id) {
+                    if (!newClasses[j].assignments.some(x => x.id === res.data[i].assignment_id)) {
+                        newClasses[j].assignments.push({
+                            id: res.data[i].assignment_id,
+                            desc: res.data[i].assignment_desc,
+                            max: res.data[i].assignment_max,
+                            kind: res.data[i].assignment_kind,
+                            dateDue: res.data[i].assignment_due_date
+                        })
+                    }
+                }
+            }
+        }
+        for (let i in newClasses) {
+            for (let j in newClasses[i].students) {
+                for (let k in res.data) {
+                    if (res.data[k].class_id === newClasses[i].class_id &&
+                        res.data[k].student_id === newClasses[i].students[j].student_id &&
+                        res.data[k].mark_student_id === newClasses[i].students[j].student_id
+                    ) {
+                        newClasses[i].students[j].marks.push({
+                            student_id: res.data[k].mark_student_id,
+                            id: res.data[k].mark_id,
+                            score: res.data[k].mark_score,
+                            score_max: res.data[k].assignment_max,
+                            assignment_id: res.data[k].assignment_id,
+                            kind: res.data[k].assignment_kind
+                        })
+                    }
+                }
+            }
+        }
+        return newClasses;
+        //return res.data.slice(0,10)
 
-    // }
-    //classes = 
-    // let top5 = classes.slice(0, 5)
-    //classes= classes.slice(0,5)
+    })
     return {
         type: GET_CLASSES,
         payload: classes
     }
+
 }
 
 // Reducer

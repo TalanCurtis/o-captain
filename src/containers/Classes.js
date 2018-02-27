@@ -12,7 +12,7 @@ class Classes extends Component {
     render(){
         return (
             <div className='Classes'>
-                <Header />
+                <Header title='Classes'/>
                 <button onClick={()=>this.test()}>Props</button>
                 <h1>{this.props.user.first_name}</h1>
             </div>
