@@ -1,11 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
 
-function Classes() {
-    return (
-        <div className='Classes'>
-            Classes container
-        </div>
-    )
+class Classes extends Component {
+    componentDidMount(){
+        console.log('Mounted')
+        console.log('props', this.props)
+    }
+    render(){
+        return (
+            <div className='Classes'>
+                Classes container
+            </div>
+        )
+    }
 }
 
-export default Classes;
+function mapStateToProps(state){
+    return state;
+}
+export default connect(mapStateToProps)(Classes);
