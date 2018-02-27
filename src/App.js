@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { HashRouter } from 'react-router-dom';
+import routes from './routes';
 
-class App extends Component {
-  render() {
+function App() {
     return (
-      <div className="App">
-        o-captin
-      </div>
+      <HashRouter>
+        <div className="App">
+          {routes}
+        </div>
+      </HashRouter>
     );
-  }
 }
 
 export default App;
