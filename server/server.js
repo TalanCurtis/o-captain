@@ -48,6 +48,16 @@ app.get('/api/user', (req, res, next)=>{
     res.status(200).send(req.session.user)
 })
 
+//// Auth
+/// switch req.session.user <> req.user
+app.get('/auth/me', (req, res) => {
+    if (!req.session.user) {
+        res.status(404).send({})
+        // return res.redirect('http://localhost:3000/')
+    } else {
+        res.status(200).send(req.session.user)
+    }
+})
 // Run Server
 app.listen(SERVER_PORT, ()=>(console.log(`Sailing on port: ${SERVER_PORT}`)))
 

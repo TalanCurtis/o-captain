@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getUser } from '../reducers/user_reducer';
 
 class Header extends Component {
     componentDidMount() {
         // TODO : Auth me. Make sure user is authorized and authenticated
+        this.props.getUser()
+        console.log('header mounted')
     }
 
     handleLogout() {
@@ -17,7 +20,7 @@ class Header extends Component {
         return (
             <div className='Header'>
                 <button onClick={() => this.handleBack()}>Back</button>
-                <h1>Title</h1>
+                <h1>{this.props.user.info.first_name}</h1>
                 <button onClick={() => this.handleLogout()}>Logout</button>
             </div>
         )
@@ -25,6 +28,7 @@ class Header extends Component {
 }
 
 const outputActions = {
+    getUser
 }
 
 function mapStateToProps(state) {
