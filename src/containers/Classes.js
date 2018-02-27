@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import Header from '../components/Header';
 
 class Classes extends Component {
     componentDidMount(){
@@ -10,6 +11,7 @@ class Classes extends Component {
         return (
             <div className='Classes'>
                 Classes container
+                <Header />
             </div>
         )
     }
