@@ -1,0 +1,15 @@
+@import '../variables';
+
+.not_checked_input {
+  margin: 3px;
+  padding: 2px;
+  cursor: pointer;
+  &:hover {
+    color: $medium;
+  }
+}
+
+.checked_input {
+  @extend .not_checked_input;
+  text-decoration: line-through;
+}

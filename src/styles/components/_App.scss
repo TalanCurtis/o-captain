@@ -1,0 +1,47 @@
+@import '../variables';
+@import '../mixins';
+
+.Header{
+  background-color: $medium;
+  display: grid;
+  grid-template-columns: 60px 1fr 60px; 
+  justify-items: center;
+}
+
+// .outer_container {
+//   width: 450px;
+//   background: $dark;
+//   margin: 50px auto;
+//   @include shadow($medium);
+//   h1 {
+//     text-align: center;
+//     color: $light;
+//     padding: 50px 0 0 0;
+//   }
+// }
+
+// .main_container {
+//   width: 100%;
+//   background: white;
+//   margin: 50px auto;
+//   padding: 75px;
+// }
+
+// .input_container {
+//   width: 100%;
+//   margin: 0 auto;
+//   padding: 10px 0;
+//   button {
+//     width: 50px;
+//   }
+//   input {
+//     width: calc(100% - 65px);
+//     margin: 0 10px 0 0;
+//     height: 25px;
+//     padding-left: 5px;
+//   }
+// }
+
+// .list_container {
+//   width: 30vw;
+// }
