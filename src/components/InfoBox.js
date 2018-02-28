@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
+import AssignmentsModal from '../components/AssignmentsModal';
+
 
 class InfoBox extends Component {
+    constructor() {
+        super();
+        this.state = {
+            displayAssignmentsModal: false
+        }
+    }
     test() {
         console.log(this.props)
     }
 
-    addAssignment(){
-        console.log('add assignment')
+    openAddAssignment(){
+        console.log('openAddAssignment')
+        this.setState({displayAssignmentsModal:true})
     }
-    editAssignment(){
+    addAssignment() {
+        console.log('add assignment')
+        this.setState({displayAssignmentsModal:false})
+    }
+    cancelAddAssignment() {
+        console.log('cancel add assignment')
+        this.setState({displayAssignmentsModal:false})
+    }
+    editAssignment() {
         console.log('edit assignment')
     }
 
@@ -74,11 +91,11 @@ class InfoBox extends Component {
                 let classTests = tests.map((x, i) => {
 
                     return (
-                            <div className='InfoBox_Content'  onClick={()=>this.editAssignment()} key={i}>
-                                <h3>{x.desc}</h3>
-                                <h3>{x.max}</h3>
-                                <h3>{x.dateDue}</h3>
-                            </div>
+                        <div className='InfoBox_Content' onClick={() => this.editAssignment()} key={i}>
+                            <h3>{x.desc}</h3>
+                            <h3>{x.max}</h3>
+                            <h3>{x.dateDue}</h3>
+                        </div>
                     )
                 })
                 return (
@@ -87,7 +104,7 @@ class InfoBox extends Component {
                             <h3>{'Test'}</h3>
                             <h3>{'Max Score'}</h3>
                             <h3>{'Date Due'}</h3>
-                            <button onClick={()=>this.addAssignment()}>Add</button>
+                            <button onClick={() => this.openAddAssignment()}>Add</button>
                         </div>
                         {classTests}
                     </div>
@@ -103,10 +120,14 @@ class InfoBox extends Component {
             <div className='InfoBox'>
                 {this.renderSwitch(this.props.renderSwitch)}
                 <button onClick={() => this.test()}>test</button>
+                <AssignmentsModal
+                    addAssignment={() => this.addAssignment()}
+                    cancel={() => this.cancelAddAssignment()}
+                    displayAssignmentsModal={this.state.displayAssignmentsModal}
+                />
             </div>
         )
     }
-
 }
 
 function mapStateToProps(state) {

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import InfoBox from '../components/InfoBox';
 
-
 class Class extends Component {
     componentDidMount() {
     }
