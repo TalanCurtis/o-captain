@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import AssignmentsModal from '../components/AssignmentsModal';
-import axios from 'axios';
+//import axios from 'axios';
+import { addAssignment } from '../reducers/classes_reducer';
 
 class InfoBox extends Component {
     constructor() {
@@ -16,31 +17,26 @@ class InfoBox extends Component {
         console.log(this.props)
     }
 
-    openAddAssignment(){
+    openAddAssignment() {
         console.log('openAddAssignment')
-        this.setState({displayAssignmentsModal:true})
+        this.setState({ displayAssignmentsModal: true })
     }
     addAssignment(value) {
         let body = {
             kind: 'test',
-            max_score: value.inputScoreMax*1,
+            max_score: value.inputScoreMax * 1,
             description: value.inputName,
             due_date: '11/22/2016',
             class_id: this.props.class_id
         }
         console.log('body: ', body)
-        axios.post('/api/add/assignment', body).then(res=>{
-            console.log(res)
-        })
-        // Note add assignment need to add it to assigments and all students marks in that class.
-        // add to db
-        // then when i have the assignment_id
-        // distubute to all student in class
-        //this.setState({displayAssignmentsModal:false})
+        this.props.addAssignment(body)
+        this.setState({ displayAssignmentsModal: false })
+        
     }
     cancelAddAssignment() {
         console.log('cancel add assignment')
-        this.setState({displayAssignmentsModal:false})
+        this.setState({ displayAssignmentsModal: false })
     }
     editAssignment() {
         console.log('edit assignment')
@@ -142,9 +138,12 @@ class InfoBox extends Component {
         )
     }
 }
+const outputActions = {
+    addAssignment: addAssignment
+}
 
 function mapStateToProps(state) {
     return state
 }
 
-export default connect(mapStateToProps)(InfoBox);
+export default connect(mapStateToProps, outputActions)(InfoBox);

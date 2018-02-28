@@ -2,12 +2,24 @@ import axios from 'axios';
 
 // Initial State
 const initialState = {
-    list:[]
+    list: []
 }
 // Actions Consts
 const GET_CLASSES = 'GET_CLASSES'
+const ADD_ASSIGNMENT = 'ADD_ASSIGNMENT'
 
 // Action Builders
+export function addAssignment(body) {
+    let payload = axios.post('/api/add/assignment', body).then(res => {
+        console.log('response: ', res)
+        console.log('response: ', res.data)
+        return res.data
+    })
+    return {
+        type: ADD_ASSIGNMENT,
+        payload: payload
+    }
+}
 export function getClasses(id) {
     /* example object returned
     {
@@ -30,7 +42,7 @@ export function getClasses(id) {
     //let classes = [];
     let classes = axios.get('/api/teacher/' + id).then(res => {
         console.log('hit reducer get classes')
-        
+
         // make new arrays from data and set them to state.
         // create a new list of classes
         let newClasses = []
@@ -109,7 +121,27 @@ export function getClasses(id) {
 export default function (state = initialState, action) {
     switch (action.type) {
         case GET_CLASSES + '_FULFILLED':
-            return Object.assign({}, state, {list:action.payload})
+            return Object.assign({}, state, { list: action.payload });
+        case ADD_ASSIGNMENT + '_FULFILLED':
+            console.log('state: ', state)
+            let newState = Object.assign({}, state)
+            for (let i in newState.list) {
+                if (newState.list[i].class_id === action.payload[0].class_id) {
+                    // console.log('LEFT OFF HERE!!!', newState.list[i])
+                    newState.list[i].assignments = action.payload
+                        //.filter(x => x.kind === 'test')
+                        .map(x => {
+                            return {
+                                dateDue: x.due_date,
+                                desc: x.description,
+                                id: x.id,
+                                kind: x.kind,
+                                max: x.max_score
+                            }
+                        })
+                }
+            }
+            return newState;
         default:
             return state;
     }

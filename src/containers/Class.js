@@ -12,7 +12,7 @@ class Class extends Component {
     }
     render() {
         // get class id from url
-        let class_id = this.props.match.url.split('/').pop() * 1
+        let class_id = this.props.match.params.classId *1
         return (
             <div className='Class'>
                 <Header title={'Class Name Here'} />

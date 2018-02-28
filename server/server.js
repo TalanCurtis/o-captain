@@ -67,3 +67,6 @@ app.post('/api/add/assignment', teacher_controller.addAssignment)
 // Run Server
 app.listen(SERVER_PORT, ()=>(console.log(`Sailing on port: ${SERVER_PORT}`)))
 
+// use this  to run server and not have to reload database to avoid db error
+// nodemon --watch server
+

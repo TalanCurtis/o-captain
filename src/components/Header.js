@@ -7,7 +7,7 @@ class Header extends Component {
     componentDidMount() {
         // TODO : Auth me. Make sure user is authorized and authenticated
         // Get User info then get all my class information from db with that user id.
-        this.props.getUser().then(res=> this.props.getClasses(this.props.user.id))
+        this.props.getUser().then(res => this.props.getClasses(this.props.user.id))
     }
 
     handleLogout() {
@@ -15,6 +15,9 @@ class Header extends Component {
     }
     handleBack() {
         console.log('Back pushed')
+        //this.props.history.push('/')
+        //Router.History.back()
+        //console.log(this.state)
     }
 
     render() {
