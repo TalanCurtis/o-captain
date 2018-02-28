@@ -29,6 +29,9 @@ class InfoBox extends Component {
             class_id: this.props.class_id
         }
         console.log('body: ', body)
+        axios.post('/api/add/assignment', body).then(res=>{
+            console.log(res)
+        })
         // Note add assignment need to add it to assigments and all students marks in that class.
         // add to db
         // then when i have the assignment_id

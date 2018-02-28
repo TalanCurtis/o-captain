@@ -8,5 +8,14 @@ module.exports = {
             // return that info
             res.status(200).send(dbResponse)
         })
+    },
+    addAssignment: (req, res, next) => {
+        console.log('addAssignment: ', req.body)
+        const {kind, max_score, description, due_date, class_id} = req.body
+        const db = req.app.get('db')
+        db.add_assignment([kind, max_score, description, due_date, class_id]).then(dbResponse => {
+            // return that info
+            res.status(200).send(dbResponse)
+        })
     }
 }
