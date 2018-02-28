@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUser } from '../reducers/user_reducer';
 import { getClasses } from '../reducers/classes_reducer';
+import { withRouter } from 'react-router-dom';
 
 class Header extends Component {
     componentDidMount() {
@@ -15,9 +16,7 @@ class Header extends Component {
     }
     handleBack() {
         console.log('Back pushed')
-        //this.props.history.push('/')
-        //Router.History.back()
-        //console.log(this.state)
+        this.props.history.goBack()
     }
 
     render() {
@@ -40,4 +39,5 @@ function mapStateToProps(state) {
     return state
 }
 
-export default connect(mapStateToProps, outputActions)(Header);
+// export default connect(mapStateToProps, outputActions)(Header);
+export default withRouter(connect(mapStateToProps, outputActions)(Header));
