@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import InfoBox from '../components/InfoBox';
 
 class Classes extends Component {
     componentDidMount(){
@@ -13,6 +14,7 @@ class Classes extends Component {
         return (
             <div className='Classes'>
                 <Header title='Classes'/>
+                <InfoBox renderSwitch='Classes'/>
                 <button onClick={()=>this.test()}>Props</button>
                 <h1>{this.props.user.first_name}</h1>
             </div>

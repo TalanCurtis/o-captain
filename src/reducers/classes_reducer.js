@@ -1,11 +1,9 @@
 import axios from 'axios';
 
 // Initial State
-const initialState = [{
-    assignments: [],
-    name: 'placeholder',
-    students: []
-}]
+const initialState = {
+    list:[]
+}
 // Actions Consts
 const GET_CLASSES = 'GET_CLASSES'
 
@@ -111,7 +109,7 @@ export function getClasses(id) {
 export default function (state = initialState, action) {
     switch (action.type) {
         case GET_CLASSES + '_FULFILLED':
-            return Object.assign({}, state, action.payload)
+            return Object.assign({}, state, {list:action.payload})
         default:
             return state;
     }
