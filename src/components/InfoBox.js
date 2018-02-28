@@ -7,12 +7,21 @@ class InfoBox extends Component {
         console.log(this.props)
     }
 
+    addAssignment(){
+        console.log('add assignment')
+    }
+    editAssignment(){
+        console.log('edit assignment')
+    }
+
     renderSwitch(key) {
+        let tests = []
+        let assignments = []
+        let classes = this.props.classes.list
         switch (key) {
             case 'Classes':
-                let classes = this.props.classes.list
-                let tests = []
-                let assignments = []
+                tests = []
+                assignments = []
                 classes = classes.map((x, i) => {
                     for (let i in x.students) {
                         for (let j in x.students[i].marks) {
@@ -49,6 +58,41 @@ class InfoBox extends Component {
                     </div>
                 )
 
+            case 'Tests':
+                tests = []
+                for (let i in classes) {
+                    if (classes[i].class_id === this.props.class_id) {
+                        console.log('class found')
+                        for (let j in classes[i].assignments) {
+                            if (classes[i].assignments[j].kind === 'test') {
+                                console.log('found test')
+                                tests.push(classes[i].assignments[j])
+                            }
+                        }
+                    }
+                }
+                let classTests = tests.map((x, i) => {
+
+                    return (
+                            <div className='InfoBox_Content'  onClick={()=>this.editAssignment()} key={i}>
+                                <h3>{x.desc}</h3>
+                                <h3>{x.max}</h3>
+                                <h3>{x.dateDue}</h3>
+                            </div>
+                    )
+                })
+                return (
+                    <div>
+                        <div className="InfoBox_Header">
+                            <h3>{'Test'}</h3>
+                            <h3>{'Max Score'}</h3>
+                            <h3>{'Date Due'}</h3>
+                            <button onClick={()=>this.addAssignment()}>Add</button>
+                        </div>
+                        {classTests}
+                    </div>
+                )
+
             default:
                 return console.log('Info box render switch defaulted');
         }
@@ -58,6 +102,7 @@ class InfoBox extends Component {
         return (
             <div className='InfoBox'>
                 {this.renderSwitch(this.props.renderSwitch)}
+                <button onClick={() => this.test()}>test</button>
             </div>
         )
     }
