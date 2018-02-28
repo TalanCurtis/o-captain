@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import AssignmentsModal from '../components/AssignmentsModal';
-
+import axios from 'axios';
 
 class InfoBox extends Component {
     constructor() {
@@ -10,6 +10,7 @@ class InfoBox extends Component {
         this.state = {
             displayAssignmentsModal: false
         }
+        this.addAssignment = this.addAssignment.bind(this)
     }
     test() {
         console.log(this.props)
@@ -19,9 +20,20 @@ class InfoBox extends Component {
         console.log('openAddAssignment')
         this.setState({displayAssignmentsModal:true})
     }
-    addAssignment() {
-        console.log('add assignment')
-        this.setState({displayAssignmentsModal:false})
+    addAssignment(value) {
+        let body = {
+            kind: 'test',
+            max_score: value.inputScoreMax*1,
+            description: value.inputName,
+            due_date: '11/22/2016',
+            class_id: this.props.class_id
+        }
+        console.log('body: ', body)
+        // Note add assignment need to add it to assigments and all students marks in that class.
+        // add to db
+        // then when i have the assignment_id
+        // distubute to all student in class
+        //this.setState({displayAssignmentsModal:false})
     }
     cancelAddAssignment() {
         console.log('cancel add assignment')
@@ -79,10 +91,8 @@ class InfoBox extends Component {
                 tests = []
                 for (let i in classes) {
                     if (classes[i].class_id === this.props.class_id) {
-                        console.log('class found')
                         for (let j in classes[i].assignments) {
                             if (classes[i].assignments[j].kind === 'test') {
-                                console.log('found test')
                                 tests.push(classes[i].assignments[j])
                             }
                         }
@@ -121,7 +131,7 @@ class InfoBox extends Component {
                 {this.renderSwitch(this.props.renderSwitch)}
                 <button onClick={() => this.test()}>test</button>
                 <AssignmentsModal
-                    addAssignment={() => this.addAssignment()}
+                    addAssignment={this.addAssignment}
                     cancel={() => this.cancelAddAssignment()}
                     displayAssignmentsModal={this.state.displayAssignmentsModal}
                 />

@@ -6,8 +6,8 @@ class AssignmentsModal extends Component {
         Modal.setAppElement('body');
         super(props)
     this.state = {
-        inputName: undefined,
-        inputScoreMax: undefined,
+        inputName: 'Placeholder',
+        inputScoreMax: 0,
     }
 }
 
@@ -35,7 +35,7 @@ handleOnChange(title, value) {
                 <input title='inputScoreMax' type="number" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))}/>
             </div>
             <button onClick={this.props.cancel} >Cancel</button>
-            <button onClick={this.props.addAssignment}>Add</button>
+            <button onClick={()=>this.props.addAssignment(this.state)}>Add</button>
 
             </Modal>
         )
