@@ -7,7 +7,6 @@ class Classes extends Component {
     }
     test(){
         console.log("props", this.props)
-        console.log("props first name: ", this.props.user.first_name)
     }
     render(){
         return (

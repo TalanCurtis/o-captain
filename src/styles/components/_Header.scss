@@ -1,0 +1,9 @@
+@import '../variables';
+@import '../mixins';
+
+.Header{
+  background-color: $step3;
+  display: grid;
+  grid-template-columns: 60px 1fr 60px; 
+  justify-items: center;
+}
