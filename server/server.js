@@ -9,7 +9,10 @@ const app = express();
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env;
 
 // Connect to Database
-massive({ connectionString: CONNECTION_STRING }).then(db => app.set('db', db))
+massive({ connectionString: CONNECTION_STRING }).then(db => {
+    app.set('db', db)
+    console.log('database connected')
+})
 
 // import middleware
 const bodyParser=require('body-parser');
