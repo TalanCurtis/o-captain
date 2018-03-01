@@ -15,6 +15,7 @@ massive({ connectionString: CONNECTION_STRING }).then(db => app.set('db', db))
 const bodyParser=require('body-parser');
 
 // Top level middleware
+app.use( express.static( `${__dirname}/../build` ) );
 app.use(bodyParser.json())
 app.use(session({
     secret: SESSION_SECRET,
