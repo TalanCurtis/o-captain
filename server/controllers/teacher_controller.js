@@ -1,11 +1,10 @@
 module.exports = {
-    getAll: (req, res, next) => {
-        console.log('teacher endpoint hit')
+    getClasses: (req, res, next) => {
+        console.log('getClasses endpoint hit')
         let id = req.params.id;
         // go get db info
         const db = req.app.get('db')
-        db.get_all_teacher_info([id]).then(dbResponse => {
-            // return that info
+        db.get_classes([id]).then(dbResponse => {
             res.status(200).send(dbResponse)
         })
     },
@@ -18,9 +17,6 @@ module.exports = {
             db.get_all_assignments_for_class([dbResponse[0].class_id]).then(allAssignments=>{
                 res.status(200).send(allAssignments)
             })
-            // })
-            // console.log('dbrespons: ', dbResponse)
-            // res.status(200).send(dbResponse)
         })
     }
 }

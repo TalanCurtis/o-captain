@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUser } from '../reducers/user_reducer';
-import { getClasses } from '../reducers/classes_reducer';
 import { withRouter } from 'react-router-dom';
 
 class Header extends Component {
     componentDidMount() {
         // TODO : Auth me. Make sure user is authorized and authenticated
         // Get User info then get all my class information from db with that user id.
-        this.props.getUser().then(res => this.props.getClasses(this.props.user.id))
+        this.props.getUser()
     }
 
     handleLogout() {
@@ -32,7 +31,6 @@ class Header extends Component {
 
 const outputActions = {
     getUser,
-    getClasses
 }
 
 function mapStateToProps(state) {
