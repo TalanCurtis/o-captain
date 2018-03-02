@@ -17,6 +17,11 @@ handleOnChange(title, value) {
     })
 }
     render() {
+        console.log(this.props)
+        // Check to see if assignment object is empty
+        let assignment = this.props.assignmentToEdit
+        let isEmpty = Object.keys(this.props.assignmentToEdit).length === 0 && this.props.assignmentToEdit.constructor === Object
+        console.log(assignment)
         return (
             <Modal
                 isOpen={!!this.props.displayAssignmentsModal}
@@ -25,17 +30,20 @@ handleOnChange(title, value) {
                 closeTimeoutMS={200}
                 className='AssignmentsModal'
             >
-            <h3>This is modal</h3>
+            {isEmpty?<h3>{'Add Item'}</h3>: <h3>{'Edit: '+assignment.kind}</h3>}
             <div>
-                <h4>Test Name</h4>
+                {isEmpty?<h4>Add Name</h4>: <h4>{'Name: '+assignment.description}</h4>}
                 <input title='inputName' type="text" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))}/>
             </div>
             <div>
-                <h4>Max Score</h4>
+                {isEmpty?<h4>Max Score</h4>: <h4>{'Max Score: '+assignment.max_score}</h4>}
                 <input title='inputScoreMax' type="number" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))}/>
             </div>
             <button onClick={this.props.cancel} >Cancel</button>
-            <button onClick={()=>this.props.addAssignment(this.state)}>Add</button>
+           
+            {isEmpty? null :  <button onClick={this.props.cancel} >Delete</button>}
+            {isEmpty?<button onClick={()=>this.props.addAssignment(this.state)}>Add</button> : <button onClick={()=>this.props.updateAssignment(this.state)}>Update</button>}
+            
 
             </Modal>
         )
