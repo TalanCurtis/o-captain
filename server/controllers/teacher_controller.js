@@ -17,7 +17,7 @@ module.exports = {
                 console.log(summaries)
                 let dbResponse = summaries.map(summary=>{
                     return {
-                        average:(summary[0].score / summary[0].max_score * 100).toFixed(1)*1,
+                        tests_average:(summary[0].score / summary[0].max_score * 100).toFixed(1)*1,
                         class_name: summary[0].class_name,
                         class_id: summary[0].class_id
                     }
