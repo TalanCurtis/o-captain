@@ -51,7 +51,9 @@ class InfoBox extends Component {
                         <Link to={'/Class/' + x.class_id} key={i} style={{ textDecoration: 'none' }}>
                             <div className='InfoBox_Content'>
                                 <h3>{x.class_name}</h3>
-                                <h3>{x.tests_average}</h3>
+                                <h3>{x.tests}</h3>
+                                <h3>{x.assignments}</h3>
+                                <h3>{x.average}</h3>
                             </div>
                         </Link>
                     )
