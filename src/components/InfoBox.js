@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import AssignmentsModal from '../components/AssignmentsModal';
-//import axios from 'axios';
-import { addAssignment } from '../reducers/classes_reducer';
+import axios from 'axios';
 
 class InfoBox extends Component {
     constructor() {
@@ -14,7 +12,8 @@ class InfoBox extends Component {
         this.addAssignment = this.addAssignment.bind(this)
     }
     test() {
-        console.log(this.props)
+        console.log(this.props,)
+
     }
 
     openAddAssignment() {
@@ -29,8 +28,9 @@ class InfoBox extends Component {
             due_date: '11/22/2016',
             class_id: this.props.class_id
         }
-        console.log('body: ', body)
-        this.props.addAssignment(body)
+        axios.post('/api/class/assignments/add', body).then(res=>{
+            this.props.refreshLists()
+        })
         this.setState({ displayAssignmentsModal: false })
 
     }
@@ -70,7 +70,7 @@ class InfoBox extends Component {
                     </div>
                 )
             case "Tests":
-                console.log(this.props)
+                //console.log(this.props)
                 info = this.props.infoList.map((x, i) => {
                     return (
                         <div key={i} className='InfoBox_Content'>
@@ -196,12 +196,5 @@ class InfoBox extends Component {
         )
     }
 }
-const outputActions = {
-    addAssignment: addAssignment
-}
 
-function mapStateToProps(state) {
-    return state
-}
-
-export default connect(mapStateToProps, outputActions)(InfoBox);
+export default InfoBox;
