@@ -25,7 +25,7 @@ class InfoBox extends Component {
         console.log('openAddAssignment')
         this.setState({
             displayAssignmentsModal: true,
-            assignmentToEdit: {kind:kind}
+            assignmentToEdit: { kind: kind }
         })
     }
     addAssignment(value) {
@@ -101,6 +101,8 @@ class InfoBox extends Component {
         let labels = []
         //// numbers is the value of the average for class grade
         let numbers = []
+        // colors array lets me choose different color for value in numbers
+        let colors = []
         let data = {}
         let options = {}
 
@@ -109,13 +111,14 @@ class InfoBox extends Component {
                 info = this.props.infoList.map((x, i) => {
                     labels.push(x.class_name)
                     numbers.push(x.average)
+                    colors.push(x.tests>65?('#00C800'):('#FF0000'))
                     return (
                         <Link className='Link' key={i} to={'/Class/' + x.class_id} style={{ textDecoration: 'none' }} >
                             <div className='InfoBox_Text'>
                                 <h3>{x.class_name}</h3>
-                                <h3>{x.tests}</h3>
-                                <h3>{x.assignments}</h3>
-                                <h3>{x.average}</h3>
+                                {(x.tests > 65) ? <h3>{x.tests}</h3> : <h3 style={{ "color": "red" }}>{x.tests}</h3>}
+                                {(x.assignments > 65) ? <h3>{x.assignments}</h3> : <h3 style={{ "color": "red" }}>{x.assignments}</h3>}
+                                {(x.average > 65) ? <h3>{x.average}</h3> : <h3 style={{ "color": "red" }}>{x.average}</h3>}
                             </div>
                         </Link>
                     )
@@ -126,9 +129,10 @@ class InfoBox extends Component {
                     datasets: [{
                         label: 'Grade Average',
                         data: numbers,
-                        backgroundColor: ('#2AAA4A')
+                        backgroundColor:colors
                     }]
                 }
+                console.log('thisis data', data)                
                 // Chart Options
                 options = {
                     scales: {
@@ -183,7 +187,6 @@ class InfoBox extends Component {
                     </div>
                 )
             case "Assignments":
-                //console.log(this.props)
                 info = this.props.infoList.map((x, i) => {
                     return (
                         <div key={i} className='InfoBox_Text' onClick={() => this.editAssignment(x)}>
