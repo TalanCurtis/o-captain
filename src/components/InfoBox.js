@@ -21,16 +21,17 @@ class InfoBox extends Component {
 
     }
 
-    openAddAssignment() {
+    openAddAssignment(kind) {
         console.log('openAddAssignment')
         this.setState({
             displayAssignmentsModal: true,
-            assignmentToEdit: {}
+            assignmentToEdit: {kind:kind}
         })
     }
     addAssignment(value) {
+        console.log('Value coming from modal: ', value)
         let body = {
-            kind: 'test',
+            kind: value.kind,
             max_score: value.inputScoreMax * 1,
             description: value.inputName,
             due_date: '11/22/2016',
@@ -173,7 +174,32 @@ class InfoBox extends Component {
                             <h2>{'Test'}</h2>
                             <h2>{'Max Score'}</h2>
                             <h2>{'Due Date'}</h2>
-                            <button onClick={() => this.openAddAssignment()}>Add</button>
+                            <button onClick={() => this.openAddAssignment('test')}>Add</button>
+                        </div>
+                        <div className='InfoBox_Content'>
+                            {info}
+                        </div>
+
+                    </div>
+                )
+            case "Assignments":
+                //console.log(this.props)
+                info = this.props.infoList.map((x, i) => {
+                    return (
+                        <div key={i} className='InfoBox_Text' onClick={() => this.editAssignment(x)}>
+                            <h3>{x.description}</h3>
+                            <h3>{x.max_score}</h3>
+                            <h3>{x.due_date}</h3>
+                        </div>
+                    )
+                })
+                return (
+                    <div>
+                        <div className="InfoBox_Header">
+                            <h2>{'Assignment'}</h2>
+                            <h2>{'Max Score'}</h2>
+                            <h2>{'Due Date'}</h2>
+                            <button onClick={() => this.openAddAssignment('assignment')}>Add</button>
                         </div>
                         <div className='InfoBox_Content'>
                             {info}

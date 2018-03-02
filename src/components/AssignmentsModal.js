@@ -17,10 +17,10 @@ handleOnChange(title, value) {
     })
 }
     render() {
-        console.log(this.props)
+        console.log( 'modal props', this.props)
         // Check to see if assignment object is empty
         let assignment = this.props.assignmentToEdit
-        let isEmpty = Object.keys(this.props.assignmentToEdit).length === 0 && this.props.assignmentToEdit.constructor === Object
+        let isEmpty = Object.keys(this.props.assignmentToEdit).length === 1 && this.props.assignmentToEdit.constructor === Object
         console.log(assignment)
         return (
             <Modal
@@ -39,13 +39,9 @@ handleOnChange(title, value) {
                 {isEmpty?<h4>Max Score</h4>: <h4>{'Max Score: '+assignment.max_score}</h4>}
                 <input title='inputScoreMax' type="number" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))}/>
             </div>
-           
-           
             {isEmpty? null :  <button onClick={()=>this.props.deleteAssignment(assignment)} >Delete</button>}
             <button onClick={this.props.cancel} >Cancel</button>
-            {isEmpty?<button onClick={()=>this.props.addAssignment(this.state)}>Add</button> : <button onClick={()=>this.props.updateAssignment(this.state, assignment)}>Update</button>}
-            
-
+            {isEmpty?<button onClick={()=>this.props.addAssignment(Object.assign({},this.state, this.props.assignmentToEdit))}>Add</button> : <button onClick={()=>this.props.updateAssignment(this.state, assignment)}>Update</button>}
             </Modal>
         )
     }
