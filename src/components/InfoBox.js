@@ -8,22 +8,22 @@ class InfoBox extends Component {
         super();
         this.state = {
             displayAssignmentsModal: false,
-            assignmentToEdit:{}
+            assignmentToEdit: {}
         }
         this.addAssignment = this.addAssignment.bind(this)
         this.editAssignment = this.editAssignment.bind(this)
         this.updateAssignment = this.updateAssignment.bind(this)
     }
     test() {
-        console.log(this.props,)
+        console.log(this.props, )
 
     }
 
     openAddAssignment() {
         console.log('openAddAssignment')
-        this.setState({ 
+        this.setState({
             displayAssignmentsModal: true,
-            assignmentToEdit:{}
+            assignmentToEdit: {}
         })
     }
     addAssignment(value) {
@@ -34,7 +34,7 @@ class InfoBox extends Component {
             due_date: '11/22/2016',
             class_id: this.props.class_id
         }
-        axios.post('/api/class/assignments/add', body).then(res=>{
+        axios.post('/api/class/assignments/add', body).then(res => {
             this.props.refreshLists()
         })
         this.setState({ displayAssignmentsModal: false })
@@ -42,28 +42,40 @@ class InfoBox extends Component {
     }
     cancelAddAssignment() {
         console.log('cancel add assignment')
-        this.setState({ 
+        this.setState({
             displayAssignmentsModal: false,
-            assignmentToEdit:{}
-         })
+            assignmentToEdit: {}
+        })
     }
     deleteAssignment() {
         console.log('cancel add assignment')
-        this.setState({ 
+        this.setState({
             displayAssignmentsModal: false,
-            assignmentToEdit:{}
-         })
+            assignmentToEdit: {}
+        })
     }
     editAssignment(assignment) {
         console.log('edit assignment', assignment)
-        this.setState({ 
+        this.setState({
             displayAssignmentsModal: true,
             assignmentToEdit: assignment
         })
     }
-    updateAssignment() {
+    updateAssignment(value, original) {
         console.log('update assignment')
-        this.setState({ 
+        let body = {
+            id: original.id,
+            kind: original.kind,
+            max_score: value.inputScoreMax * 1,
+            description: value.inputName,
+            due_date: original.due_date,
+            class_id: original.class_id
+        }
+        console.log('update body', body)
+        // axios.post('/api/class/assignments/update', body).then(res=>{
+        //     this.props.refreshLists()
+        // })
+        this.setState({
             displayAssignmentsModal: false,
             assignmentToEdit: {}
         })
@@ -75,32 +87,36 @@ class InfoBox extends Component {
             case 'Classes':
                 info = this.props.infoList.map((x, i) => {
                     return (
-                        <Link to={'/Class/' + x.class_id} key={i} style={{ textDecoration: 'none' }}>
-                            <div className='InfoBox_Content'>
+                        <Link className='Link' key={i} to={'/Class/' + x.class_id} style={{ textDecoration: 'none' }} >
+                            <div className='InfoBox_Text'>
                                 <h3>{x.class_name}</h3>
                                 <h3>{x.tests}</h3>
                                 <h3>{x.assignments}</h3>
                                 <h3>{x.average}</h3>
                             </div>
                         </Link>
+
+
                     )
                 })
                 return (
                     <div>
                         <div className="InfoBox_Header">
-                            <h3>{'Class'}</h3>
-                            <h3>{'Tests'}</h3>
-                            <h3>{'Assignments'}</h3>
-                            <h3>{'Average'}</h3>
+                            <h2>{'Class'}</h2>
+                            <h2>{'Tests'}</h2>
+                            <h2>{'Assignments'}</h2>
+                            <h2>{'Average'}</h2>
                         </div>
-                        {info}
+                        <div className='InfoBox_Content'>
+                            {info}
+                        </div>
                     </div>
                 )
             case "Tests":
                 //console.log(this.props)
                 info = this.props.infoList.map((x, i) => {
                     return (
-                        <div key={i} className='InfoBox_Content' onClick={() => this.editAssignment(x)}>
+                        <div key={i} className='InfoBox_Text' onClick={() => this.editAssignment(x)}>
                             <h3>{x.description}</h3>
                             <h3>{x.max_score}</h3>
                             <h3>{x.due_date}</h3>
@@ -110,12 +126,15 @@ class InfoBox extends Component {
                 return (
                     <div>
                         <div className="InfoBox_Header">
-                            <h3>{'Test'}</h3>
-                            <h3>{'Max Score'}</h3>
-                            <h3>{'Due Date'}</h3>
+                            <h2>{'Test'}</h2>
+                            <h2>{'Max Score'}</h2>
+                            <h2>{'Due Date'}</h2>
                             <button onClick={() => this.openAddAssignment()}>Add</button>
                         </div>
-                        {info}
+                        <div className='InfoBox_Content'>
+                            {info}
+                        </div>
+
                     </div>
                 )
             default:

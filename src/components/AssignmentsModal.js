@@ -42,7 +42,7 @@ handleOnChange(title, value) {
             <button onClick={this.props.cancel} >Cancel</button>
            
             {isEmpty? null :  <button onClick={this.props.cancel} >Delete</button>}
-            {isEmpty?<button onClick={()=>this.props.addAssignment(this.state)}>Add</button> : <button onClick={()=>this.props.updateAssignment(this.state)}>Update</button>}
+            {isEmpty?<button onClick={()=>this.props.addAssignment(this.state)}>Add</button> : <button onClick={()=>this.props.updateAssignment(this.state, assignment)}>Update</button>}
             
 
             </Modal>

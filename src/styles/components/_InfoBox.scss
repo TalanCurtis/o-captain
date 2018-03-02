@@ -2,19 +2,34 @@
 
 .InfoBox_Header{
     background-color: $step2;
-    height: 20px;
+    height: 30px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    justify-items: center;
+    // justify-items: center;
+    // align-items: center;
+    text-align: center;
+    // text-justify: distribute;
+    color: $step4;
 }
 
 .InfoBox_Content{
+    display: grid;
+    grid-template-columns: 1fr;
+    // align-items: center;
+    // justify-items: center;
+}
+
+.InfoBox_Content div:nth-child(even){
+    background-color: $step4;
+}
+
+.InfoBox_Content .Link:nth-child(even){
+    background-color: $step4;
+}
+
+.InfoBox_Text{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     // align-items: center;
     justify-items: center;
 }
-
-.InfoBox_Content div:nth-child(even){
-    background-color: $step2;
-  }
