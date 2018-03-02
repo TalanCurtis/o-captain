@@ -99,5 +99,24 @@ module.exports = {
             //     res.status(200).send(allAssignments)
             // })
         })
+    },
+    updateAssignment: (req, res, next) => {
+        console.log('updateAssignment: ', req.body)
+        // res.status(200).send('hello')
+        const { kind, max_score, description, due_date, class_id, id } = req.body
+        const db = req.app.get('db')
+        db.new.update_assignment([max_score, description, id]).then(dbResponse => {
+            res.status(200).send(dbResponse)
+        })
+    },
+    deleteAssignment: (req, res, next) => {
+        console.log('deleteAssignment: ', req)
+        // res.status(200).send('hello')
+        const {id} = req.body
+        const db = req.app.get('db')
+        console.log('this is id: ', req.body)
+        db.new.delete_assignment([id]).then(dbResponse => {
+            res.status(200).send(`${id} item deleted`)
+        })
     }
 }

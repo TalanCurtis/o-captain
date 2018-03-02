@@ -39,9 +39,10 @@ handleOnChange(title, value) {
                 {isEmpty?<h4>Max Score</h4>: <h4>{'Max Score: '+assignment.max_score}</h4>}
                 <input title='inputScoreMax' type="number" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))}/>
             </div>
-            <button onClick={this.props.cancel} >Cancel</button>
            
-            {isEmpty? null :  <button onClick={this.props.cancel} >Delete</button>}
+           
+            {isEmpty? null :  <button onClick={()=>this.props.deleteAssignment(assignment)} >Delete</button>}
+            <button onClick={this.props.cancel} >Cancel</button>
             {isEmpty?<button onClick={()=>this.props.addAssignment(this.state)}>Add</button> : <button onClick={()=>this.props.updateAssignment(this.state, assignment)}>Update</button>}
             
 

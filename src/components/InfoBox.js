@@ -13,6 +13,7 @@ class InfoBox extends Component {
         this.addAssignment = this.addAssignment.bind(this)
         this.editAssignment = this.editAssignment.bind(this)
         this.updateAssignment = this.updateAssignment.bind(this)
+        this.deleteAssignment = this.deleteAssignment.bind(this)
     }
     test() {
         console.log(this.props, )
@@ -47,8 +48,17 @@ class InfoBox extends Component {
             assignmentToEdit: {}
         })
     }
-    deleteAssignment() {
-        console.log('cancel add assignment')
+    deleteAssignment(assignment) {
+        console.log('deleteAssignment assignment', assignment)
+        // When using delete with a body it needs to be in a data: key
+        let body = {
+            data: {id: assignment.id}
+        }
+        console.log('deleteAssignment body', body)
+        axios.delete('/api/class/assignments/delete', body).then(res=>{
+            console.log(' delete res: ',res.data)
+            this.props.refreshLists()
+        })   
         this.setState({
             displayAssignmentsModal: false,
             assignmentToEdit: {}
@@ -72,9 +82,10 @@ class InfoBox extends Component {
             class_id: original.class_id
         }
         console.log('update body', body)
-        // axios.post('/api/class/assignments/update', body).then(res=>{
-        //     this.props.refreshLists()
-        // })
+        axios.put('/api/class/assignments/update', body).then(res=>{
+            console.log(' update res: ',res.data)
+            this.props.refreshLists()
+        })
         this.setState({
             displayAssignmentsModal: false,
             assignmentToEdit: {}
@@ -153,6 +164,7 @@ class InfoBox extends Component {
                     assignmentToEdit={this.state.assignmentToEdit}
                     editAssignment={this.editAssignment}
                     updateAssignment={this.updateAssignment}
+                    deleteAssignment={this.deleteAssignment}
                 />
             </div>
         )
