@@ -69,6 +69,25 @@ module.exports = {
             }).catch(console.log)
         }).catch(console.log)
     },
+    getAssignments: (req, res, next) =>{
+        console.log('getAssignments', req.params.class_id)
+        // res.status(200).send('made it')
+        const db = req.app.get('db')
+        db.new.get_assignments([req.params.class_id]).then( dbResponse => {
+            let lists={
+                tests:[],
+                assignments:[]
+            }
+            dbResponse.forEach(x => {
+                if(x.kind==='test'){
+                    lists.tests.push(x)
+                }else if(x.kind === 'assignment'){
+                    lists.assignments.push(x)
+                }
+            })
+            res.status(200).send(lists)
+        }).catch(console.log)
+    },
     addAssignment: (req, res, next) => {
         console.log('addAssignment: ', req.body)
         const { kind, max_score, description, due_date, class_id } = req.body

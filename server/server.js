@@ -67,6 +67,7 @@ app.get('/auth/me', (req, res) => {
 //// Teacher
 app.post('/api/add/assignment', teacher_controller.addAssignment)
 app.get('/api/classes/:id', teacher_controller.getClasses)
+app.get('/api/class/assignments/:class_id', teacher_controller.getAssignments)
 
 // Run Server
 app.listen(SERVER_PORT, ()=>(console.log(`Sailing on port: ${SERVER_PORT}`)))

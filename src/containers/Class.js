@@ -2,9 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import InfoBox from '../components/InfoBox';
+import axios from 'axios';
 
 class Class extends Component {
+    constructor() {
+        super();
+        this.state = {
+            assignments: [],
+            tests: [],
+            students: []
+        }
+    }
     componentDidMount() {
+        axios.get('/api/class/assignments/' + this.props.match.params.classId * 1).then((res) => {
+            this.setState({
+                assignments: res.data.assignments,
+                tests: res.data.tests
+            })
+        })
     }
 
     test() {
@@ -12,11 +27,12 @@ class Class extends Component {
     }
     render() {
         // get class id from url
-        let class_id = this.props.match.params.classId *1
+        let class_id = this.props.match.params.classId * 1
         return (
             <div className='Class'>
                 <Header title={'Class Name'} />
-                <InfoBox renderSwitch='Tests' class_id={class_id} />
+                <InfoBox renderSwitch='Tests'
+                    infoList={this.state.tests} />
                 <button onClick={() => this.test()}>Props</button>
             </div>
         )

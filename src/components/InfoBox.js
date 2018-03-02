@@ -69,6 +69,28 @@ class InfoBox extends Component {
                         {info}
                     </div>
                 )
+            case "Tests":
+                console.log(this.props)
+                info = this.props.infoList.map((x, i) => {
+                    return (
+                        <div key={i} className='InfoBox_Content'>
+                            <h3>{x.description}</h3>
+                            <h3>{x.max_score}</h3>
+                            <h3>{x.due_date}</h3>
+                        </div>
+                    )
+                })
+                return (
+                    <div>
+                        <div className="InfoBox_Header">
+                            <h3>{'Test'}</h3>
+                            <h3>{'Max Score'}</h3>
+                            <h3>{'Due Date'}</h3>
+                            <button onClick={() => this.openAddAssignment()}>Add</button>
+                        </div>
+                        {info}
+                    </div>
+                )
             default:
                 return console.log('render switch defaulted');
         }
@@ -157,6 +179,11 @@ class InfoBox extends Component {
         return (
             <div className='InfoBox'>
                 {this.renderSwitch(this.props.renderSwitch)}
+                <AssignmentsModal
+                    addAssignment={this.addAssignment}
+                    cancel={() => this.cancelAddAssignment()}
+                    displayAssignmentsModal={this.state.displayAssignmentsModal}
+                />
 
                 {/* {this.renderSwitch(this.props.renderSwitch)}
                 <button onClick={() => this.test()}>test</button>
