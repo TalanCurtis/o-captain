@@ -25,7 +25,6 @@ class Classes extends Component {
         return (
             <div className='Classes'>
                 <Header title='Classes' />
-                {'Put Classes Chart Here'}
                 <InfoBox renderSwitch='Classes' 
                     infoList={this.state.classList}
                 />

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import AssignmentsModal from '../components/AssignmentsModal';
 import axios from 'axios';
+import { Bar } from 'react-chartjs-2';
 
 class InfoBox extends Component {
     constructor() {
@@ -52,13 +53,13 @@ class InfoBox extends Component {
         console.log('deleteAssignment assignment', assignment)
         // When using delete with a body it needs to be in a data: key
         let body = {
-            data: {id: assignment.id}
+            data: { id: assignment.id }
         }
         console.log('deleteAssignment body', body)
-        axios.delete('/api/class/assignments/delete', body).then(res=>{
-            console.log(' delete res: ',res.data)
+        axios.delete('/api/class/assignments/delete', body).then(res => {
+            console.log(' delete res: ', res.data)
             this.props.refreshLists()
-        })   
+        })
         this.setState({
             displayAssignmentsModal: false,
             assignmentToEdit: {}
@@ -82,8 +83,8 @@ class InfoBox extends Component {
             class_id: original.class_id
         }
         console.log('update body', body)
-        axios.put('/api/class/assignments/update', body).then(res=>{
-            console.log(' update res: ',res.data)
+        axios.put('/api/class/assignments/update', body).then(res => {
+            console.log(' update res: ', res.data)
             this.props.refreshLists()
         })
         this.setState({
@@ -94,9 +95,19 @@ class InfoBox extends Component {
 
     renderSwitch(key) {
         let info = []
+        // Chart variables
+        //// labels is they name of the classes in chart
+        let labels = []
+        //// numbers is the value of the average for class grade
+        let numbers = []
+        let data = {}
+        let options = {}
+
         switch (key) {
             case 'Classes':
                 info = this.props.infoList.map((x, i) => {
+                    labels.push(x.class_name)
+                    numbers.push(x.average)
                     return (
                         <Link className='Link' key={i} to={'/Class/' + x.class_id} style={{ textDecoration: 'none' }} >
                             <div className='InfoBox_Text'>
@@ -106,12 +117,34 @@ class InfoBox extends Component {
                                 <h3>{x.average}</h3>
                             </div>
                         </Link>
-
-
                     )
                 })
+                // Chart Data
+                data = {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Grade Average',
+                        data: numbers,
+                        backgroundColor: ('#2AAA4A')
+                    }]
+                }
+                // Chart Options
+                options = {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                suggestedMin: 0,
+                                suggestedMax: 100
+                            }
+                        }]
+                    },
+                    // maintainAspectRatio: false
+                }
                 return (
                     <div>
+                        <div>
+                            <Bar options={options} data={data} />
+                        </div>
                         <div className="InfoBox_Header">
                             <h2>{'Class'}</h2>
                             <h2>{'Tests'}</h2>
