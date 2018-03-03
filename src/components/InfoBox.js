@@ -9,7 +9,8 @@ class InfoBox extends Component {
         super();
         this.state = {
             displayAssignmentsModal: false,
-            assignmentToEdit: {}
+            assignmentToEdit: {},
+            scoreToEdit:{}
         }
         this.addAssignment = this.addAssignment.bind(this)
         this.editAssignment = this.editAssignment.bind(this)
