@@ -111,7 +111,7 @@ class InfoBox extends Component {
                 info = this.props.infoList.map((x, i) => {
                     labels.push(x.class_name)
                     numbers.push(x.average)
-                    colors.push(x.tests>65?('#00C800'):('#FF0000'))
+                    colors.push(x.tests > 65 ? ('#00C800') : ('#FF0000'))
                     return (
                         <Link className='Link' key={i} to={'/Class/' + x.class_id} style={{ textDecoration: 'none' }} >
                             <div className='InfoBox_Text'>
@@ -129,10 +129,10 @@ class InfoBox extends Component {
                     datasets: [{
                         label: 'Grade Average',
                         data: numbers,
-                        backgroundColor:colors
+                        backgroundColor: colors
                     }]
                 }
-                console.log('thisis data', data)                
+                console.log('thisis data', data)
                 // Chart Options
                 options = {
                     scales: {
@@ -208,6 +208,32 @@ class InfoBox extends Component {
                             {info}
                         </div>
 
+                    </div>
+                )
+            case 'Students':
+                info = this.props.infoList.map((x, i) => {
+                    return (
+                        <Link className='Link' key={i} to={'/Class/'+x.class_id+'/Student/'+ x.id} style={{ textDecoration: 'none' }}>
+                            <div className='InfoBox_Text'>
+                                <h3>{x.first_name}</h3>
+                                <h3>{x.last_name}</h3>
+                                <h3>{x.tests_avg}</h3>
+                                <h3>{x.assignments_avg}</h3>
+                            </div>
+                        </Link>
+                    )
+                })
+                return (
+                    <div>
+                        <div className="InfoBox_Header">
+                            <h2>{'First'}</h2>
+                            <h2>{'Last'}</h2>
+                            <h2>{'Tests'}</h2>
+                            <h2>{'Assignments'}</h2>
+                        </div>
+                        <div className='InfoBox_Content'>
+                            {info}
+                        </div>
                     </div>
                 )
             default:

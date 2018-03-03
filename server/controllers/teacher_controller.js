@@ -1,6 +1,5 @@
 module.exports = {
     getClasses: (req, res, next) => {
-        console.log('getClasses endpoint hit')
         let id = req.params.id;
         // go get db info
         const db = req.app.get('db')
@@ -11,11 +10,9 @@ module.exports = {
             user_id: req.params.id
         }).then(classes => {
             classes.forEach(klass => {
-                console.log(klass.id, req.params.id * 1)
                 stack.push(db.new.get_class_test_summary(req.params.id, klass.id))
             })
             Promise.all(stack).then(summaries => {
-                console.log('Summeries: ', summaries)
                 let dbResponse = summaries.map(summary => {
                     return [
                         {
@@ -61,13 +58,11 @@ module.exports = {
                         }
                     }
                 })
-                console.log('dbResponse: ', combine)
-                res.status(200).send(combine)
+                res.status(200).send(combine)   
             }).catch(console.log)
         }).catch(console.log)
     },
     getAssignments: (req, res, next) => {
-        console.log('getAssignments', req.params.class_id)
         const db = req.app.get('db')
         db.new.get_assignments([req.params.class_id]).then(dbResponse => {
             let lists = {
@@ -85,17 +80,14 @@ module.exports = {
         }).catch(console.log)
     },
     getStudents: (req, res, next) => {
-        console.log('getStudents', req.params.class_id)
         const db = req.app.get('db')
         let stack = []
         db.new.get_students([req.params.class_id]).then(students => {
             students.forEach(student => {
-                console.log(student.id, student.class_id)
                 stack.push(db.new.get_student_averages(student.id, student.class_id))
 
             })
             Promise.all(stack).then(averages => {
-                console.log('averages: ', averages)
                 averages = [].concat.apply([], averages);
                 let newStudents = []
                 let tests_avg = averages.filter(x => x.kind === 'test')
@@ -104,7 +96,6 @@ module.exports = {
                 for (let i in students) {
                     for (let j in tests_avg) {
                         if (tests_avg[j].user_id = students[i].id) {
-                            console.log(tests_avg[j], students[i])
                             newStudent = {
                                 first_name: students[i].first_name,
                                 last_name: students[i].last_name,
@@ -121,12 +112,11 @@ module.exports = {
                     }
                     newStudents.push(newStudent)
                 }
-                res.status(200).send({ averages, students, newStudents, tests_avg, assignments_avg })
+                res.status(200).send(newStudents)
             })
         }).catch(console.log)
     },
     addAssignment: (req, res, next) => {
-        console.log('addAssignment: ', req.body)
         const { kind, max_score, description, due_date, class_id } = req.body
         const db = req.app.get('db')
         db.add_assignment([kind, max_score, description, due_date, class_id]).then(dbResponse => {
@@ -134,7 +124,6 @@ module.exports = {
         })
     },
     updateAssignment: (req, res, next) => {
-        console.log('updateAssignment: ', req.body)
         // res.status(200).send('hello')
         const { kind, max_score, description, due_date, class_id, id } = req.body
         const db = req.app.get('db')
@@ -143,11 +132,9 @@ module.exports = {
         })
     },
     deleteAssignment: (req, res, next) => {
-        console.log('deleteAssignment: ', req)
         // res.status(200).send('hello')
         const { id } = req.body
         const db = req.app.get('db')
-        console.log('this is id: ', req.body)
         db.new.delete_assignment([id]).then(dbResponse => {
             res.status(200).send(`${id} item deleted`)
         })

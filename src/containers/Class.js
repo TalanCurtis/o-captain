@@ -25,9 +25,9 @@ class Class extends Component {
         // Go get Students from database
         axios.get('/api/class/students/' + this.props.match.params.classId * 1).then((res) => {
             console.log('response from students: ', res.data)
-            // this.setState({
-            //     students: res.data
-            // })
+            this.setState({
+                students: res.data
+            })
         })
     }
 
@@ -57,6 +57,11 @@ class Class extends Component {
                 />
                 <InfoBox renderSwitch='Assignments'
                     infoList={this.state.assignments}
+                    class_id={class_id}
+                    refreshLists={this.refreshLists}
+                />
+                <InfoBox renderSwitch='Students'
+                    infoList={this.state.students}
                     class_id={class_id}
                     refreshLists={this.refreshLists}
                 />
