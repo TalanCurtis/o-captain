@@ -15,11 +15,19 @@ class Class extends Component {
         this.refreshLists = this.refreshLists.bind(this)
     }
     componentDidMount() {
+        // Go get assignments from database
         axios.get('/api/class/assignments/' + this.props.match.params.classId * 1).then((res) => {
             this.setState({
                 assignments: res.data.assignments,
                 tests: res.data.tests
             })
+        })
+        // Go get Students from database
+        axios.get('/api/class/students/' + this.props.match.params.classId * 1).then((res) => {
+            console.log('response from students: ', res.data)
+            // this.setState({
+            //     students: res.data
+            // })
         })
     }
 
