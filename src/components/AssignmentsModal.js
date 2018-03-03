@@ -8,6 +8,7 @@ class AssignmentsModal extends Component {
     this.state = {
         inputName: 'Placeholder',
         inputScoreMax: 0,
+        inputNewScore: 0
     }
 }
 

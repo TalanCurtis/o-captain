@@ -79,6 +79,25 @@ module.exports = {
             res.status(200).send(lists)
         }).catch(console.log)
     },
+    getStudentAssignments: (req, res, next) => {
+        const db = req.app.get('db')
+        console.log(req.params)
+        db.new.get_student_assignments([req.params.student_id, req.params.class_id]).then(dbResponse => {
+            let lists = {
+                tests: [],
+                assignments: []
+            }
+            dbResponse.forEach(x => {
+                x.average = ((x.score / x.max_score)*100).toFixed(1)*1
+                if (x.kind === 'test') {
+                    lists.tests.push(x)
+                } else if (x.kind === 'assignment') {
+                    lists.assignments.push(x)
+                }
+            })
+            res.status(200).send(lists)
+        }).catch(console.log)
+    },
     getStudents: (req, res, next) => {
         const db = req.app.get('db')
         let stack = []

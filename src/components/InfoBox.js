@@ -94,6 +94,9 @@ class InfoBox extends Component {
         })
     }
 
+    updateScore(){
+        console.log('updateScore')
+    }
     renderSwitch(key) {
         let info = []
         // Chart variables
@@ -230,6 +233,30 @@ class InfoBox extends Component {
                             <h2>{'Last'}</h2>
                             <h2>{'Tests'}</h2>
                             <h2>{'Assignments'}</h2>
+                        </div>
+                        <div className='InfoBox_Content'>
+                            {info}
+                        </div>
+                    </div>
+                )
+            case 'StudentTests':
+                info = this.props.infoList.map((x, i) => {
+                    return (
+                            <div className='InfoBox_Text' key={i} onClick={()=>this.openAddAssignment('score')}>
+                                <h3>{x.description}</h3>
+                                <h3>{x.score}</h3>
+                                <h3>{x.max_score}</h3>
+                                <h3>{x.average}</h3>
+                            </div>
+                    )
+                })
+                return (
+                    <div>
+                        <div className="InfoBox_Header">
+                            <h2>{'Test'}</h2>
+                            <h2>{'Score'}</h2>
+                            <h2>{'Max Score'}</h2>
+                            <h2>{'Percent'}</h2>
                         </div>
                         <div className='InfoBox_Content'>
                             {info}
