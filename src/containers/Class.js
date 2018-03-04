@@ -8,7 +8,7 @@ class Class extends Component {
     constructor() {
         super();
         this.state = {
-            class_info: {class_name:'test_name'},
+            class_info: {class_name:''},
             assignments: [],
             tests: [],
             students: []
