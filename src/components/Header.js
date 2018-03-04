@@ -22,7 +22,7 @@ class Header extends Component {
         return (
             <div className='Header'>
                 <button onClick={() => this.handleBack()}>Back</button>
-                <h1>{this.props.title}</h1>
+                <h2>{this.props.title}</h2>
                 <button onClick={() => this.handleLogout()}>Logout</button>
             </div>
         )

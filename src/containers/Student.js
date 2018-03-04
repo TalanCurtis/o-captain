@@ -7,6 +7,7 @@ class Student extends Component {
     constructor() {
         super();
         this.state = {
+            student: '',
             tests: [],
             assignments: []
         }
@@ -20,7 +21,8 @@ class Student extends Component {
             console.log('res: ', res.data)
             this.setState({
                 tests: res.data.tests,
-                assignments: res.data.assignments
+                assignments: res.data.assignments,
+                student: res.data.tests[0].first_name + ' ' + res.data.tests[0].last_name
             })
         })
     }
@@ -47,7 +49,7 @@ class Student extends Component {
     render() {
         return (
             <div className='Student'>
-                <Header title={'Student Name'} />
+                <Header title={this.state.student} />
                 <InfoBox renderSwitch='StudentTests'
                     infoList={this.state.tests}
                     refreshLists={this.refreshLists}
