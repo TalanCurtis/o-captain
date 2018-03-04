@@ -58,7 +58,7 @@ module.exports = {
                         }
                     }
                 })
-                res.status(200).send(combine)   
+                res.status(200).send(combine)
             }).catch(console.log)
         }).catch(console.log)
     },
@@ -94,7 +94,7 @@ module.exports = {
                 assignments: []
             }
             dbResponse.forEach(x => {
-                x.average = ((x.score / x.max_score)*100).toFixed(1)*1
+                x.average = ((x.score / x.max_score) * 100).toFixed(1) * 1
                 if (x.kind === 'test') {
                     lists.tests.push(x)
                 } else if (x.kind === 'assignment') {
@@ -117,17 +117,17 @@ module.exports = {
                 let tests_avg = averages.filter(x => x.kind === 'test')
                 let assignments_avg = averages.filter(x => x.kind === 'assignment')
 
-                for(let i in students){
-                    for(let j in tests_avg){
-                        if(students[i].id === tests_avg[j].user_id){
-                            students[i].tests_avg =  (((tests_avg[j].score * 1) / (tests_avg[j].max_score * 1)) * 100).toFixed(1) * 1
+                for (let i in students) {
+                    for (let j in tests_avg) {
+                        if (students[i].id === tests_avg[j].user_id) {
+                            students[i].tests_avg = (((tests_avg[j].score * 1) / (tests_avg[j].max_score * 1)) * 100).toFixed(1) * 1
                         }
                     }
                 }
-                for(let i in students){
-                    for(let j in assignments_avg){
-                        if(students[i].id === assignments_avg[j].user_id){
-                            students[i].assignments_avg =  (((assignments_avg[j].score * 1) / (assignments_avg[j].max_score * 1)) * 100).toFixed(1) * 1
+                for (let i in students) {
+                    for (let j in assignments_avg) {
+                        if (students[i].id === assignments_avg[j].user_id) {
+                            students[i].assignments_avg = (((assignments_avg[j].score * 1) / (assignments_avg[j].max_score * 1)) * 100).toFixed(1) * 1
                         }
                     }
                 }
@@ -141,13 +141,31 @@ module.exports = {
         db.add_assignment([kind, max_score, description, due_date, class_id]).then(dbResponse => {
             // add corosponding marks for all students
             // find all student enrolled in class
-                // select * 
-                // from users u
-                // join enrollment e on e.user_id = u.id
-                // where class_id = 3
+            // select * 
+            // from users u
+            // join enrollment e on e.user_id = u.id
+            // where class_id = 3
             // for each student in list  add marks
-            res.status(200).send(dbResponse)
-        })
+            ////////////////////
+            let stack = []
+            db.enrollment.find({
+                class_id: class_id
+            }).then(students => {
+                // console.log(student)
+                students.forEach(student => {
+                    //score, date_received, notes, assignment_id, user_id
+                    console.log('mark to make', [-1, 0, '', dbResponse[0].id, student.user_id])
+                    stack.push(db.new.add_mark(-1, 0, '', dbResponse[0].id, student.user_id))
+                })
+                Promise.all(stack).then(response => {
+                    //console.log('hello')
+                    res.status(200).send(dbResponse)
+                })
+            }).catch(console.log)
+            // console.log('dbResponse: ', dbResponse)
+            // console.log('dbResponse: ', dbResponse[0].id)
+            //res.status(200).send(dbResponse)
+        }).catch(console.log)
     },
     updateAssignment: (req, res, next) => {
         // res.status(200).send('hello')
