@@ -52,6 +52,10 @@ class Student extends Component {
                     infoList={this.state.tests}
                     refreshLists={this.refreshLists}
                 />
+                <InfoBox renderSwitch='StudentAssignments'
+                    infoList={this.state.assignments}
+                    refreshLists={this.refreshLists}
+                />
                 <button onClick={() => this.test()}>test</button>
             </div>
         )
