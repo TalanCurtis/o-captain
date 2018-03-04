@@ -108,30 +108,24 @@ module.exports = {
             })
             Promise.all(stack).then(averages => {
                 averages = [].concat.apply([], averages);
-                let newStudents = []
                 let tests_avg = averages.filter(x => x.kind === 'test')
                 let assignments_avg = averages.filter(x => x.kind === 'assignment')
-                let newStudent = {}
-                for (let i in students) {
-                    for (let j in tests_avg) {
-                        if (tests_avg[j].user_id = students[i].id) {
-                            newStudent = {
-                                first_name: students[i].first_name,
-                                last_name: students[i].last_name,
-                                id: students[i].id,
-                                class_id: students[i].class_id,
-                                tests_avg: (((tests_avg[j].score * 1) / (tests_avg[j].max_score * 1)) * 100).toFixed(1) * 1
-                            }
+
+                for(let i in students){
+                    for(let j in tests_avg){
+                        if(students[i].id === tests_avg[j].user_id){
+                            students[i].tests_avg =  (((tests_avg[j].score * 1) / (tests_avg[j].max_score * 1)) * 100).toFixed(1) * 1
                         }
                     }
-                    for (let k in assignments_avg){
-                        if(assignments_avg[k].user_id = students[i].id){
-                            newStudent.assignments_avg = (((assignments_avg[k].score * 1) / (assignments_avg[k].max_score * 1)) * 100).toFixed(1) * 1
-                        }
-                    }
-                    newStudents.push(newStudent)
                 }
-                res.status(200).send(newStudents)
+                for(let i in students){
+                    for(let j in assignments_avg){
+                        if(students[i].id === assignments_avg[j].user_id){
+                            students[i].assignments_avg =  (((assignments_avg[j].score * 1) / (assignments_avg[j].max_score * 1)) * 100).toFixed(1) * 1
+                        }
+                    }
+                }
+                res.status(200).send(students)
             })
         }).catch(console.log)
     },
