@@ -79,6 +79,12 @@ module.exports = {
             res.status(200).send(lists)
         }).catch(console.log)
     },
+    getClassInfo: (req, res, next) => {
+        const db = req.app.get('db')
+        db.new.get_class([req.params.class_id]).then(dbResponse => {
+            res.status(200).send(dbResponse)
+        }).catch(console.log)
+    },
     getStudentAssignments: (req, res, next) => {
         const db = req.app.get('db')
         console.log(req.params)

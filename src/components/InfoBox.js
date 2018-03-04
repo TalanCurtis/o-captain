@@ -127,7 +127,7 @@ class InfoBox extends Component {
                 info = this.props.infoList.map((x, i) => {
                     labels.push(x.class_name)
                     numbers.push(x.average)
-                    colors.push(x.tests > 65 ? ('#00C800') : ('#FF0000'))
+                    colors.push(x.average > 65 ? ('#00C800') : ('#FF0000'))
                     return (
                         <Link className='Link' key={i} to={'/Class/' + x.class_id} style={{ textDecoration: 'none' }} >
                             <div className='InfoBox_Text'>
@@ -207,7 +207,8 @@ class InfoBox extends Component {
                     return (
                         <div key={i} className='InfoBox_Text' onClick={() => this.openModal('editAssignment', x)}>
                             <h3>{x.description}</h3>
-                            <h3>{x.max_score}</h3>
+                            {/* <h3>{x.max_score}</h3> */}
+                            {(x.max_score > 65) ? <h3>{x.max_score}</h3> : <h3 style={{ "color": "red" }}>{x.max_score}</h3>}
                             <h3>{x.due_date}</h3>
                         </div>
                     )
@@ -233,8 +234,10 @@ class InfoBox extends Component {
                             <div className='InfoBox_Text'>
                                 <h3>{x.first_name}</h3>
                                 <h3>{x.last_name}</h3>
-                                <h3>{x.tests_avg}</h3>
-                                <h3>{x.assignments_avg}</h3>
+                                {(x.tests_avg > 65) ? <h3>{x.tests_avg}</h3> : <h3 style={{ "color": "red" }}>{x.tests_avg}</h3>}
+                                {/* <h3>{x.tests_avg}</h3> */}
+                                {(x.assignments_avg > 65) ? <h3>{x.assignments_avg}</h3> : <h3 style={{ "color": "red" }}>{x.assignments_avg}</h3>}                                
+                                {/* <h3>{x.assignments_avg}</h3> */}
                             </div>
                         </Link>
                     )
@@ -257,9 +260,12 @@ class InfoBox extends Component {
                     return (
                         <div className='InfoBox_Text' key={i} onClick={()=>this.openModal('editMark', x)}>
                             <h3>{x.description}</h3>
-                            <h3>{x.score}</h3>
-                            <h3>{x.max_score}</h3>
-                            <h3>{x.average}</h3>
+                            {(x.score > 65) ? <h3>{x.score}</h3> : <h3 style={{ "color": "red" }}>{x.score}</h3>}                                
+                            {(x.max_score > 65) ? <h3>{x.max_score}</h3> : <h3 style={{ "color": "red" }}>{x.max_score}</h3>}                                
+                            {(x.average > 65) ? <h3>{x.average}</h3> : <h3 style={{ "color": "red" }}>{x.average}</h3>}                                
+                            {/* <h3>{x.score}</h3> */}
+                            {/* <h3>{x.max_score}</h3> */}
+                            {/* <h3>{x.average}</h3> */}
                         </div>
                     )
                 })
@@ -281,9 +287,13 @@ class InfoBox extends Component {
                     return (
                         <div className='InfoBox_Text' key={i} onClick={()=>this.openModal('editMark', x)}>
                             <h3>{x.description}</h3>
-                            <h3>{x.score}</h3>
+                            {(x.score > 65) ? <h3>{x.score}</h3> : <h3 style={{ "color": "red" }}>{x.score}</h3>}                                
                             <h3>{x.max_score}</h3>
-                            <h3>{x.average}</h3>
+                            {(x.average > 65) ? <h3>{x.average}</h3> : <h3 style={{ "color": "red" }}>{x.average}</h3>}                                
+                            
+                            {/* <h3>{x.score}</h3>
+                            <h3>{x.max_score}</h3>
+                            <h3>{x.average}</h3> */}
                         </div>
                     )
                 })

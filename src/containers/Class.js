@@ -8,6 +8,7 @@ class Class extends Component {
     constructor() {
         super();
         this.state = {
+            class_info: {class_name:'test_name'},
             assignments: [],
             tests: [],
             students: []
@@ -27,6 +28,13 @@ class Class extends Component {
             console.log('response from students: ', res.data)
             this.setState({
                 students: res.data
+            })
+        })
+        // Go get class info
+        axios.get('/api/class/info/'+ this.props.match.params.classId * 1).then((res) => {
+            console.log('response from class info: ', res.data)
+            this.setState({
+                class_info: res.data[0]
             })
         })
     }
@@ -57,7 +65,9 @@ class Class extends Component {
         let class_id = this.props.match.params.classId * 1
         return (
             <div className='Class'>
-                <Header title={'Class Name'} />
+                <Header title={this.state.class_info.class_name} />
+                <button onClick={() => this.test()}>Props</button>
+                
                 <InfoBox renderSwitch='Tests'
                     infoList={this.state.tests}
                     class_id={class_id}
@@ -73,7 +83,6 @@ class Class extends Component {
                     class_id={class_id}
                     refreshLists={this.refreshLists}
                 />
-                <button onClick={() => this.test()}>Props</button>
             </div>
         )
     }
