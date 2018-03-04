@@ -10,6 +10,7 @@ class Student extends Component {
             tests: [],
             assignments: []
         }
+        this.refreshLists = this.refreshLists.bind(this)
     }
     componentDidMount() {
         // go hit database for student info for this class.

@@ -89,10 +89,27 @@ class AssignmentsModal extends Component {
                     </div>
                 )
             case 'editMark':
+                modalDisplay = (
+                    <div>
+                        <h2> Change: {this.props.itemToEdit.description}</h2>
+                        <div>
+                            <h2>Score: {this.props.itemToEdit.score} / {this.props.itemToEdit.max_score}</h2>
+                            <input title='inputNewScore' type="number" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))} />
+                        </div>
+                        <div className='ConfimationButtons_Container'>
+                            <button onClick={this.props.cancel}>Cancel</button>
+                            <button onClick={() => this.props.editMark(Object.assign({}, this.props.itemToEdit,
+                                {
+                                    score: this.state.inputNewScore * 1
+                                }
+                            ))}>Update</button>
+                        </div>
+                    </div>
+                )
 
                 return (
                     <div>
-                        add mark
+                        {modalDisplay}
                     </div>
                 )
 

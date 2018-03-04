@@ -157,6 +157,14 @@ module.exports = {
             res.status(200).send(dbResponse)
         })
     },
+    editMark: (req, res, next) => {
+        // res.status(200).send('hello')
+        const { score, id } = req.body
+        const db = req.app.get('db')
+        db.new.edit_mark([score, id]).then(dbResponse => {
+            res.status(200).send(dbResponse)
+        })
+    },
     deleteAssignment: (req, res, next) => {
         // res.status(200).send('hello')
         const { id } = req.body

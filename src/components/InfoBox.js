@@ -16,6 +16,7 @@ class InfoBox extends Component {
         }
         this.addAssignment = this.addAssignment.bind(this)
         this.editAssignment = this.editAssignment.bind(this)
+        this.editMark = this.editMark.bind(this)
         this.deleteAssignment = this.deleteAssignment.bind(this)
     }
     test() {
@@ -41,8 +42,8 @@ class InfoBox extends Component {
             itemToEdit: {}
         })
     }
-    addAssignment(assignment){
-        let body = Object.assign({}, assignment, {class_id: this.props.class_id})
+    addAssignment(assignment) {
+        let body = Object.assign({}, assignment, { class_id: this.props.class_id })
         console.log('body: ', body)
         axios.post('/api/class/assignments/add', body).then(res => {
             this.props.refreshLists()
@@ -50,7 +51,7 @@ class InfoBox extends Component {
         this.setState({ displayAssignmentsModal: false })
     }
     editAssignment(assignment) {
-        console.log('edit assignment' , assignment)
+        console.log('edit assignment', assignment)
         let body = assignment
         console.log('update body', body)
         axios.put('/api/class/assignments/update', body).then(res => {
@@ -61,6 +62,29 @@ class InfoBox extends Component {
             displayAssignmentsModal: false,
             itemToEdit: {}
         })
+    }
+    editMark(mark) {
+        console.log('edit mark: ', mark)
+        // let body = Object.assign({}, mark, {class_id: this.props.match.params.classId})
+        let body = {
+            id: mark.mark_id,
+            score: mark.score,
+            date_recieved: 121212,
+            notes: "",
+            assignment_id: mark.assignment_id,
+            user_id: mark.user_id
+        }
+        console.log(body)
+        console.log('this need to work',this.props)
+        axios.put('/api/class/student/marks/' + mark.mark_id, body).then(res => {
+            console.log(res.data)
+            this.props.refreshLists()
+        })
+        this.setState({
+            displayAssignmentsModal: false,
+            itemToEdit: {}
+        })
+
     }
     deleteAssignment(assignment) {
         console.log('deleteAssignment assignment', assignment)
@@ -170,7 +194,7 @@ class InfoBox extends Component {
                             <h2>{'Test'}</h2>
                             <h2>{'Max Score'}</h2>
                             <h2>{'Due Date'}</h2>
-                            <button onClick={() => this.openModal('addAssignment', {kind: 'test'})}>Add</button>
+                            <button onClick={() => this.openModal('addAssignment', { kind: 'test' })}>Add</button>
                         </div>
                         <div className='InfoBox_Content'>
                             {info}
@@ -194,7 +218,7 @@ class InfoBox extends Component {
                             <h2>{'Assignment'}</h2>
                             <h2>{'Max Score'}</h2>
                             <h2>{'Due Date'}</h2>
-                            <button onClick={() => this.openModal('addAssignment', {kind: 'assignment'} )}>Add</button>
+                            <button onClick={() => this.openModal('addAssignment', { kind: 'assignment' })}>Add</button>
                         </div>
                         <div className='InfoBox_Content'>
                             {info}
@@ -231,7 +255,7 @@ class InfoBox extends Component {
             case 'StudentTests':
                 info = this.props.infoList.map((x, i) => {
                     return (
-                        <div className='InfoBox_Text' key={i} onClick={() => this.openModal('editMark', x)}>
+                        <div className='InfoBox_Text' key={i} onClick={()=>this.openModal('editMark', x)}>
                             <h3>{x.description}</h3>
                             <h3>{x.score}</h3>
                             <h3>{x.max_score}</h3>
@@ -266,8 +290,9 @@ class InfoBox extends Component {
                     itemToEdit={this.state.itemToEdit}
                     cancel={() => this.cancelModal()}
                     displayAssignmentsModal={this.state.displayAssignmentsModal}
-                    addAssignment={(this.addAssignment)}
+                    addAssignment={this.addAssignment}
                     editAssignment={this.editAssignment}
+                    editMark={this.editMark}
                     deleteAssignment={this.deleteAssignment}
                 />
             </div>

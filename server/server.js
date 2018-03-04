@@ -72,6 +72,7 @@ app.get('/api/class/students/:class_id', teacher_controller.getStudents)
 app.get('/api/class/:class_id/student/:student_id', teacher_controller.getStudentAssignments)
 app.post('/api/class/assignments/add', teacher_controller.addAssignment)
 app.put('/api/class/assignments/update', teacher_controller.updateAssignment)
+app.put('/api/class/student/marks/:mark_id', teacher_controller.editMark)
 app.delete('/api/class/assignments/delete', teacher_controller.deleteAssignment)
 
 // Run Server
