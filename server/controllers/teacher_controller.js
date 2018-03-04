@@ -139,6 +139,13 @@ module.exports = {
         const { kind, max_score, description, due_date, class_id } = req.body
         const db = req.app.get('db')
         db.add_assignment([kind, max_score, description, due_date, class_id]).then(dbResponse => {
+            // add corosponding marks for all students
+            // find all student enrolled in class
+                // select * 
+                // from users u
+                // join enrollment e on e.user_id = u.id
+                // where class_id = 3
+            // for each student in list  add marks
             res.status(200).send(dbResponse)
         })
     },

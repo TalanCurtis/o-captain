@@ -5,24 +5,104 @@ class AssignmentsModal extends Component {
     constructor(props) {
         Modal.setAppElement('body');
         super(props)
-    this.state = {
-        inputName: 'Placeholder',
-        inputScoreMax: 0,
-        inputNewScore: 0
+        this.state = {
+            inputName: 'Placeholder',
+            inputScoreMax: 0,
+            inputNewScore: 0
+        }
     }
-}
 
-handleOnChange(title, value) {
-    this.setState({
-        [title]: value
-    })
-}
+    handleOnChange(title, value) {
+        this.setState({
+            [title]: value
+        })
+    }
+
+    test() {
+        console.log('props: ', this.props)
+        console.log('state: ', this.state)
+    }
+    renderSwitch(key) {
+        let modalDisplay = []
+        switch (key) {
+            case 'addAssignment':
+                modalDisplay = (
+                    <div>
+                        <h2> Add New {this.props.itemToEdit.kind.toUpperCase()}</h2>
+                        <div>
+                            <h2>Name</h2>
+                            <input title='inputName' type="text" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))} />
+                        </div>
+                        <div>
+                            <h2>Max Score</h2>
+                            <input title='inputScoreMax' type="number" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))} />
+                        </div>
+                        <div className='ConfimationButtons_Container'>
+                            <button onClick={this.props.cancel}>Cancel</button>
+                            <button onClick={() => this.props.addAssignment(Object.assign({}, this.props.itemToEdit,
+                                {
+                                    max_score: this.state.inputScoreMax * 1,
+                                    description: this.state.inputName,
+                                    due_date: '11/22/2016',
+                                    class_id: this.props.class_id
+                                }
+                            ))}>Add</button>
+                        </div>
+
+                    </div>
+                )
+
+                return (
+                    <div>
+                        {modalDisplay}
+                    </div>
+                )
+            case 'editAssignment':
+                modalDisplay = (
+                    <div>
+                        <h2> Edit: {this.props.itemToEdit.description}</h2>
+                        <div>
+                            <h2>Name : {this.props.itemToEdit.description}</h2>
+                            <input title='inputName' type="text" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))} />
+                        </div>
+                        <div>
+                            <h2>Max Score: {this.props.itemToEdit.max_score}</h2>
+                            <input title='inputScoreMax' type="number" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))} />
+                        </div>
+                        <div className='ConfimationButtons_Container'>
+                            <button onClick={() => this.props.deleteAssignment(this.props.itemToEdit)} >Delete</button>
+                            <button onClick={this.props.cancel}>Cancel</button>
+                            <button onClick={() => this.props.editAssignment(Object.assign({}, this.props.itemToEdit,
+                                {
+                                    max_score: this.state.inputScoreMax * 1,
+                                    description: this.state.inputName
+                                }
+                            ))}>Update</button>
+                        </div>
+
+                    </div>
+                )
+
+                return (
+                    <div>
+                        {modalDisplay}
+                    </div>
+                )
+            case 'editMark':
+
+                return (
+                    <div>
+                        add mark
+                    </div>
+                )
+
+            default:
+                return console.log('assignment modal render switch defaulted');
+        }
+    }
+
     render() {
-        console.log( 'modal props', this.props)
-        // Check to see if assignment object is empty
-        let assignment = this.props.assignmentToEdit
-        let isEmpty = Object.keys(this.props.assignmentToEdit).length === 1 && this.props.assignmentToEdit.constructor === Object
-        console.log(assignment)
+        console.log('modal props', this.props)
         return (
             <Modal
                 isOpen={!!this.props.displayAssignmentsModal}
@@ -31,22 +111,12 @@ handleOnChange(title, value) {
                 closeTimeoutMS={200}
                 className='AssignmentsModal'
             >
-            {isEmpty?<h3>{'Add Item'}</h3>: <h3>{'Edit: '+assignment.kind}</h3>}
-            <div>
-                {isEmpty?<h4>Add Name</h4>: <h4>{'Name: '+assignment.description}</h4>}
-                <input title='inputName' type="text" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))}/>
-            </div>
-            <div>
-                {isEmpty?<h4>Max Score</h4>: <h4>{'Max Score: '+assignment.max_score}</h4>}
-                <input title='inputScoreMax' type="number" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))}/>
-            </div>
-            {isEmpty? null :  <button onClick={()=>this.props.deleteAssignment(assignment)} >Delete</button>}
-            <button onClick={this.props.cancel} >Cancel</button>
-            {isEmpty?<button onClick={()=>this.props.addAssignment(Object.assign({},this.state, this.props.assignmentToEdit))}>Add</button> : <button onClick={()=>this.props.updateAssignment(this.state, assignment)}>Update</button>}
+                {this.renderSwitch(this.props.modalRenderSwitch)}
+                <button onClick={() => this.test()}>Props</button>
+
             </Modal>
         )
     }
-
 }
 
 export default AssignmentsModal
