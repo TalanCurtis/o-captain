@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUser } from '../reducers/user_reducer';
-import { withRouter , Link} from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import logout from '../images/logout.png'
 
 class Header extends Component {
@@ -24,9 +24,14 @@ class Header extends Component {
             <div className='Header'>
                 <button onClick={() => this.handleBack()}>Back</button>
                 <div className='title'>
-                    <h2>{this.props.title}</h2>
+                    <h1>{this.props.title}</h1>
                 </div>
-                <Link to='/'><button onClick={() => this.handleLogout()}><img src={logout} alt="" height='30' width='30'/></button></Link>
+                    <button className='LogoutButton' onClick={() => this.handleLogout()}>
+                     <Link to='/' >
+                        
+                        <img src={logout} alt="" height='30' width='30' />
+                    </Link>
+                </button>
             </div>
         )
     }

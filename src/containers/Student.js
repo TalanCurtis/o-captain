@@ -27,7 +27,7 @@ class Student extends Component {
         })
     }
     test() {
-        const { classID, student_id } = this.props.match.params
+        // const { classID, student_id } = this.props.match.params
 
         console.log("props", this.props)
         console.log("state", this.state)

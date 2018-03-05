@@ -9,7 +9,10 @@
     align-items: center;
     // text-align: center;
     // text-justify: distribute;
-    color: $step4;
+    color: $step5;
+    font-weight: 100;
+    overflow:hidden;
+    border: 2px solid $step1;
 }
 
 .InfoBox_Content{

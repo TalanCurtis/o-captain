@@ -6,11 +6,11 @@ function Auth() {
     return (
         <div className='Auth'>
             <div>
+                <h4>O-Captin</h4>
                 <img src={Logo} alt="" height='200' width='200' />
-                <Link to='/Classes'><button className='LoginButton'>Login</button></Link>
+                <Link to='/Classes'style={{ textDecoration: 'none' }} ><button className='LoginButton' >Login</button></Link>
 
             </div>
-
         </div>
     )
 }
