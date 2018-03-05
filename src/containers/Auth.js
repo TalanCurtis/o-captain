@@ -6,10 +6,9 @@ function Auth() {
     return (
         <div className='Auth'>
             <div>
-                <h4>O-Captin</h4>
+                <h4>O-Captain</h4>
                 <img src={Logo} alt="" height='200' width='200' />
                 <Link to='/Classes'style={{ textDecoration: 'none' }} ><button className='LoginButton' >Login</button></Link>
-
             </div>
         </div>
     )

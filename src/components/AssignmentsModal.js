@@ -28,7 +28,7 @@ class AssignmentsModal extends Component {
             case 'addAssignment':
                 modalDisplay = (
                     <div className='Modal_Container'>
-                        <div classname='ModalTitle'>
+                        <div className='ModalTitle'>
                                 <h2> Add New {this.props.itemToEdit.hasOwnProperty('kind') ? this.props.itemToEdit.kind.toUpperCase(): null}</h2>
                         </div>
                         <div>

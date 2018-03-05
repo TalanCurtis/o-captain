@@ -380,7 +380,6 @@ class InfoBox extends Component {
                     editMark={this.editMark}
                     deleteAssignment={this.deleteAssignment}
                 />
-                <button onClick={()=>this.sortBy('class_name', 'alpha')}>SortBy</button>
             </div>
         )
     }
