@@ -121,7 +121,7 @@ class AssignmentsModal extends Component {
     }
 
     render() {
-        console.log('modal props', this.props)
+        // console.log('modal props', this.props)
         return (
             <Modal
                 isOpen={!!this.props.displayAssignmentsModal}
