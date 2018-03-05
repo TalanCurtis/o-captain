@@ -28,7 +28,9 @@ class AssignmentsModal extends Component {
             case 'addAssignment':
                 modalDisplay = (
                     <div className='Modal_Container'>
-                        <h2> Add New {this.props.itemToEdit.hasOwnProperty('kind') ? this.props.itemToEdit.kind.toUpperCase(): null}</h2>
+                        <div classname='ModalTitle'>
+                                <h4> Add New {this.props.itemToEdit.hasOwnProperty('kind') ? this.props.itemToEdit.kind.toUpperCase(): null}</h4>
+                        </div>
                         <div>
                             <h2>Name</h2>
                             <input title='inputName' type="text" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))} />

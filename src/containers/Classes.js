@@ -25,6 +25,7 @@ class Classes extends Component {
         return (
             <div className='Classes'>
                 <Header title='Classes' />
+                <h1>Hello {`${this.props.user.first_name} ${this.props.user.last_name}`} !</h1>
                 <InfoBox renderSwitch='Classes' 
                     infoList={this.state.classList}
                 />

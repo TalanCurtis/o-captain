@@ -207,8 +207,8 @@ class InfoBox extends Component {
                     return (
                         <div key={i} className='InfoBox_Text' onClick={() => this.openModal('editAssignment', x)}>
                             <h3>{x.description}</h3>
-                            {/* <h3>{x.max_score}</h3> */}
-                            {(x.max_score > 65) ? <h3>{x.max_score}</h3> : <h3 style={{ "color": "red" }}>{x.max_score}</h3>}
+                            <h3>{x.max_score}</h3>
+                            {/* {(x.max_score > 65) ? <h3>{x.max_score}</h3> : <h3 style={{ "color": "red" }}>{x.max_score}</h3>} */}
                             <h3>{x.due_date}</h3>
                         </div>
                     )
@@ -261,7 +261,8 @@ class InfoBox extends Component {
                         <div className='InfoBox_Text' key={i} onClick={()=>this.openModal('editMark', x)}>
                             <h3>{x.description}</h3>
                             {(x.score > 65) ? <h3>{x.score}</h3> : <h3 style={{ "color": "red" }}>{x.score}</h3>}                                
-                            {(x.max_score > 65) ? <h3>{x.max_score}</h3> : <h3 style={{ "color": "red" }}>{x.max_score}</h3>}                                
+                            {/* {(x.max_score > 65) ? <h3>{x.max_score}</h3> : <h3 style={{ "color": "red" }}>{x.max_score}</h3>}                                 */}
+                            <h3>{x.max_score}</h3> 
                             {(x.average > 65) ? <h3>{x.average}</h3> : <h3 style={{ "color": "red" }}>{x.average}</h3>}                                
                             {/* <h3>{x.score}</h3> */}
                             {/* <h3>{x.max_score}</h3> */}
