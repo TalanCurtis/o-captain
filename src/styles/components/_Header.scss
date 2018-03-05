@@ -6,11 +6,17 @@
   display: grid;
   grid-template-columns: 60px 1fr 60px; 
   height: 44px;
-  text-align: center;
+  // text-align: center;
+  // text-justify: 
   color: $step1;
   // border: 2px solid black;
   // justify-items: center;
   // align-items: center;
+}
+.title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .Header button{
   background-color: $step3;

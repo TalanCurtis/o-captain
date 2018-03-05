@@ -58,7 +58,7 @@ class Student extends Component {
                     infoList={this.state.assignments}
                     refreshLists={this.refreshLists}
                 />
-                <button onClick={() => this.test()}>test</button>
+                {/* <button onClick={() => this.test()}>test</button> */}
             </div>
         )
     }

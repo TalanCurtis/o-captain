@@ -20,11 +20,24 @@
 
 .AssignmentsModal{
     background-color: $step2;
-    padding: 10px;
+    padding: 20px;
     width: 80vw;
     height: 80vh;
 
 }
 .AssignmentsModal{
     word-break: break-all;
+}
+// .Modal_Container{
+//     display: flex;
+//     justify-content: space-around;
+//     align-items: center;
+// }
+.ConfimationButtons_Container{
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+}
+input{
+    width: 60vw;
 }

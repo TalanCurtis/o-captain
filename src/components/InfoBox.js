@@ -132,9 +132,9 @@ class InfoBox extends Component {
                         <Link className='Link' key={i} to={'/Class/' + x.class_id} style={{ textDecoration: 'none' }} >
                             <div className='InfoBox_Text'>
                                 <h3>{x.class_name}</h3>
-                                {(x.tests > 65) ? <h3>{x.tests}</h3> : <h3 style={{ "color": "red" }}>{x.tests}</h3>}
-                                {(x.assignments > 65) ? <h3>{x.assignments}</h3> : <h3 style={{ "color": "red" }}>{x.assignments}</h3>}
                                 {(x.average > 65) ? <h3>{x.average}</h3> : <h3 style={{ "color": "red" }}>{x.average}</h3>}
+                                {(x.assignments > 65) ? <h3>{x.assignments}</h3> : <h3 style={{ "color": "red" }}>{x.assignments}</h3>}
+                                {(x.tests > 65) ? <h3>{x.tests}</h3> : <h3 style={{ "color": "red" }}>{x.tests}</h3>}
                             </div>
                         </Link>
                     )
@@ -168,9 +168,9 @@ class InfoBox extends Component {
                         </div>
                         <div className="InfoBox_Header">
                             <h2>{'Class'}</h2>
+                            <h2>{'Avg'}</h2>
+                            <h2>{'Asgmts'}</h2>
                             <h2>{'Tests'}</h2>
-                            <h2>{'Assignments'}</h2>
-                            <h2>{'Average'}</h2>
                         </div>
                         <div className='InfoBox_Content'>
                             {info}
@@ -192,8 +192,8 @@ class InfoBox extends Component {
                     <div>
                         <div className="InfoBox_Header">
                             <h2>{'Test'}</h2>
-                            <h2>{'Max Score'}</h2>
-                            <h2>{'Due Date'}</h2>
+                            <h2>{'Max'}</h2>
+                            <h2>{'Due'}</h2>
                             <button onClick={() => this.openModal('addAssignment', { kind: 'test' })}>Add</button>
                         </div>
                         <div className='InfoBox_Content'>
@@ -216,9 +216,9 @@ class InfoBox extends Component {
                 return (
                     <div>
                         <div className="InfoBox_Header">
-                            <h2>{'Assignment'}</h2>
-                            <h2>{'Max Score'}</h2>
-                            <h2>{'Due Date'}</h2>
+                            <h2>{'Asgmt'}</h2>
+                            <h2>{'Max'}</h2>
+                            <h2>{'Due'}</h2>
                             <button onClick={() => this.openModal('addAssignment', { kind: 'assignment' })}>Add</button>
                         </div>
                         <div className='InfoBox_Content'>
@@ -248,7 +248,7 @@ class InfoBox extends Component {
                             <h2>{'First'}</h2>
                             <h2>{'Last'}</h2>
                             <h2>{'Tests'}</h2>
-                            <h2>{'Assignments'}</h2>
+                            <h2>{'Asgmts'}</h2>
                         </div>
                         <div className='InfoBox_Content'>
                             {info}
@@ -274,7 +274,7 @@ class InfoBox extends Component {
                         <div className="InfoBox_Header">
                             <h2>{'Test'}</h2>
                             <h2>{'Score'}</h2>
-                            <h2>{'Max Score'}</h2>
+                            <h2>{'Max'}</h2>
                             <h2>{'Percent'}</h2>
                         </div>
                         <div className='InfoBox_Content'>
@@ -300,9 +300,9 @@ class InfoBox extends Component {
                 return (
                     <div>
                         <div className="InfoBox_Header">
-                            <h2>{'Assignment'}</h2>
+                            <h2>{'Asgmt'}</h2>
                             <h2>{'Score'}</h2>
-                            <h2>{'Max Score'}</h2>
+                            <h2>{'Max'}</h2>
                             <h2>{'Percent'}</h2>
                         </div>
                         <div className='InfoBox_Content'>

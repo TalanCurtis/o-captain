@@ -27,8 +27,8 @@ class AssignmentsModal extends Component {
         switch (key) {
             case 'addAssignment':
                 modalDisplay = (
-                    <div>
-                        <h2> Add New {this.props.itemToEdit.kind.toUpperCase()}</h2>
+                    <div className='Modal_Container'>
+                        <h2> Add New {this.props.itemToEdit.hasOwnProperty('kind') ? this.props.itemToEdit.kind.toUpperCase(): null}</h2>
                         <div>
                             <h2>Name</h2>
                             <input title='inputName' type="text" onChange={(e) => (this.handleOnChange(e.target.title, e.target.value))} />
@@ -129,7 +129,7 @@ class AssignmentsModal extends Component {
                 className='AssignmentsModal'
             >
                 {this.renderSwitch(this.props.modalRenderSwitch)}
-                <button onClick={() => this.test()}>Props</button>
+                {/* <button onClick={() => this.test()}>Props</button> */}
 
             </Modal>
         )

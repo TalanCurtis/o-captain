@@ -28,7 +28,7 @@ class Classes extends Component {
                 <InfoBox renderSwitch='Classes' 
                     infoList={this.state.classList}
                 />
-                <button onClick={() => this.test()}>Props</button>
+                {/* <button onClick={() => this.test()}>Props</button> */}
             </div>
         )
     }

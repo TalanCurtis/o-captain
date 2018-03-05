@@ -1,6 +1,31 @@
 @import '../variables';
 @import '../mixins';
 
+.Auth{
+    display: flex;
+    // justify-content: space-around;
+    // align-items: center;
+    padding: 100px;
+    flex-direction: column;
+    background-color: $step4;
+    height: 100vh;
+}
+.Auth div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.LoginButton{
+    height: 60px;
+    width: 100px;
+    font-size: 200%;
+    border-radius: 10px;
+    background-color: $step3;
+    margin: 10px;
+
+}
+
 // .outer_container {
 //   width: 450px;
 //   background: $dark;

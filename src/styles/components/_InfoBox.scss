@@ -4,10 +4,10 @@
     background-color: $step2;
     height: 30px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    // justify-items: center;
-    // align-items: center;
-    text-align: center;
+    grid-template-columns: 2fr 1fr 1fr 70px;
+    justify-items: center;
+    align-items: center;
+    // text-align: center;
     // text-justify: distribute;
     color: $step4;
 }
@@ -29,7 +29,8 @@
 
 .InfoBox_Text{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 70px;
     // align-items: center;
     justify-items: center;
+    text-align: center;
 }

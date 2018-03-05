@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUser } from '../reducers/user_reducer';
-import { withRouter } from 'react-router-dom';
+import { withRouter , Link} from 'react-router-dom';
+import logout from '../images/logout.png'
 
 class Header extends Component {
     componentDidMount() {
@@ -22,8 +23,10 @@ class Header extends Component {
         return (
             <div className='Header'>
                 <button onClick={() => this.handleBack()}>Back</button>
-                <h2>{this.props.title}</h2>
-                <button onClick={() => this.handleLogout()}>Logout</button>
+                <div className='title'>
+                    <h2>{this.props.title}</h2>
+                </div>
+                <Link to='/'><button onClick={() => this.handleLogout()}><img src={logout} alt="" height='30' width='30'/></button></Link>
             </div>
         )
     }

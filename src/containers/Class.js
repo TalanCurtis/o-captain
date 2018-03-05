@@ -66,7 +66,7 @@ class Class extends Component {
         return (
             <div className='Class'>
                 <Header title={this.state.class_info.class_name} />
-                <button onClick={() => this.test()}>Props</button>
+                {/* <button onClick={() => this.test()}>Props</button> */}
                 
                 <InfoBox renderSwitch='Tests'
                     infoList={this.state.tests}
