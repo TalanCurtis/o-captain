@@ -154,8 +154,8 @@ module.exports = {
                 // console.log(student)
                 students.forEach(student => {
                     //score, date_received, notes, assignment_id, user_id
-                    console.log('mark to make', [-1, 0, '', dbResponse[0].id, student.user_id])
-                    stack.push(db.new.add_mark(-1, 0, '', dbResponse[0].id, student.user_id))
+                    console.log('mark to make', [null, 0, '', dbResponse[0].id, student.user_id])
+                    stack.push(db.new.add_mark(null, 0, '', dbResponse[0].id, student.user_id))
                 })
                 Promise.all(stack).then(response => {
                     //console.log('hello')
