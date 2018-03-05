@@ -12,6 +12,8 @@ class Student extends Component {
             assignments: []
         }
         this.refreshLists = this.refreshLists.bind(this)
+        this.sort= this.sort.bind(this)
+        
     }
     componentDidMount() {
         // go hit database for student info for this class.
@@ -46,6 +48,11 @@ class Student extends Component {
         })
     }
 
+    sort(sortedList, stateName){
+        console.log('sort:', sortedList)
+        this.setState({[stateName]: sortedList})
+    }
+
     render() {
         return (
             <div className='Student'>
@@ -53,10 +60,12 @@ class Student extends Component {
                 <InfoBox renderSwitch='StudentTests'
                     infoList={this.state.tests}
                     refreshLists={this.refreshLists}
+                    sort={this.sort}
                 />
                 <InfoBox renderSwitch='StudentAssignments'
                     infoList={this.state.assignments}
                     refreshLists={this.refreshLists}
+                    sort={this.sort}
                 />
                 {/* <button onClick={() => this.test()}>test</button> */}
             </div>

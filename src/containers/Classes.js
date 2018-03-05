@@ -12,6 +12,7 @@ class Classes extends Component {
         this.state = {
             classList: []
         }
+        this.sort= this.sort.bind(this)
     }
     componentDidMount() { 
         // get user id then get class info for that user.       
@@ -21,6 +22,12 @@ class Classes extends Component {
         console.log("props", this.props)
         console.log("state", this.state)
     }
+
+    sort(sortedList, stateName){
+        console.log('sort:', sortedList)
+        this.setState({[stateName]: sortedList})
+    }
+
     render() {
         return (
             <div className='Classes'>
@@ -28,6 +35,7 @@ class Classes extends Component {
                 <h1>Hello {`${this.props.user.first_name} ${this.props.user.last_name}`} !</h1>
                 <InfoBox renderSwitch='Classes' 
                     infoList={this.state.classList}
+                    sort={this.sort}
                 />
                 {/* <button onClick={() => this.test()}>Props</button> */}
             </div>

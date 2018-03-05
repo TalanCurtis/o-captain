@@ -14,6 +14,7 @@ class Class extends Component {
             students: []
         }
         this.refreshLists = this.refreshLists.bind(this)
+        this.sort= this.sort.bind(this)
     }
     componentDidMount() {
         // Go get assignments from database
@@ -60,6 +61,12 @@ class Class extends Component {
         console.log('class props: ',this.props)
         console.log('class state: ',this.state)
     }
+
+    sort(sortedList, stateName){
+        console.log('sort:', sortedList)
+        this.setState({[stateName]: sortedList})
+    }
+
     render() {
         // get class id from url
         let class_id = this.props.match.params.classId * 1
@@ -72,16 +79,19 @@ class Class extends Component {
                     infoList={this.state.tests}
                     class_id={class_id}
                     refreshLists={this.refreshLists}
+                    sort={this.sort}
                 />
                 <InfoBox renderSwitch='Assignments'
                     infoList={this.state.assignments}
                     class_id={class_id}
                     refreshLists={this.refreshLists}
+                    sort={this.sort}
                 />
                 <InfoBox renderSwitch='Students'
                     infoList={this.state.students}
                     class_id={class_id}
                     refreshLists={this.refreshLists}
+                    sort={this.sort}
                 />
             </div>
         )

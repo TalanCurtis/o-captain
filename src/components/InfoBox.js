@@ -9,10 +9,9 @@ class InfoBox extends Component {
         super();
         this.state = {
             displayAssignmentsModal: false,
-            assignmentToEdit: {},
-            scoreToEdit: {},
             itemToEdit: {},
-            modalRenderSwitch: ''
+            modalRenderSwitch: '',
+            list: [{class_name:'hello'}, {class_name:'Randy'}, {class_name: 'Aldo'}]
         }
         this.addAssignment = this.addAssignment.bind(this)
         this.editAssignment = this.editAssignment.bind(this)
@@ -20,8 +19,59 @@ class InfoBox extends Component {
         this.deleteAssignment = this.deleteAssignment.bind(this)
     }
     test() {
-        console.log(this.props, )
+        console.log(this.props )
 
+    }
+    // runSort(newOrder){
+    //     ()=>this.props.sort(newOrder)
+    // }
+    sortBy(key, kind, stateName) {
+        // sortBy takes in the state 'key' you want to reorder and  'kind' numerc and alpha.
+        console.log('sort by: ', key, kind)
+        let newOrder = []
+        switch (kind) {
+            case 'alpha':
+                newOrder = this.props.infoList.slice().sort((a, b) => {
+                    let textA = a[key].toLowerCase();
+                    let textB = b[key].toLowerCase();
+                    // return (this.state.sortByToggle ? (textA > textB) : (textA < textB))
+                    if (this.state.sortByToggle) {
+                        if (textA > textB) { return -1 }
+                        if (textA < textB) { return 1 }
+                    } else {
+                        if (textA > textB) { return 1 }
+                        if (textA < textB) { return -1 }
+                    }
+                    return 0;
+                })
+                this.setState({ sortByToggle: !this.state.sortByToggle })
+                // console.log(newOrder)
+                this.props.sort(newOrder, stateName)
+                break;
+            case 'number':
+                newOrder = this.props.infoList.slice().sort((a, b) => {
+                    let textA = a[key];
+                    let textB = b[key];
+                    //return (this.state.sortByToggle ? (textA > textB) : (textA < textB))
+                    if (this.state.sortByToggle) {
+                        if (textA > textB) { return -1 }
+                        if (textA < textB) { return 1 }
+                    } else {
+                        if (textA > textB) { return 1 }
+                        if (textA < textB) { return -1 }
+                    }
+                    return 0;
+                })
+                this.setState({ sortByToggle: !this.state.sortByToggle })
+                this.props.sort(newOrder, stateName)
+                // this.props.sort(newOrder)  
+                // this.runSort(newOrder)              
+                break;
+
+            default:
+                return console.log('sort by switch defaulted')
+        }
+        console.log('state: ', this.state)
     }
     /// new modal
     /////////////
@@ -148,7 +198,7 @@ class InfoBox extends Component {
                         backgroundColor: colors
                     }]
                 }
-                console.log('thisis data', data)
+                // console.log('thisis data', data)
                 // Chart Options
                 options = {
                     scales: {
@@ -167,10 +217,10 @@ class InfoBox extends Component {
                             <Bar options={options} data={data} />
                         </div>
                         <div className="InfoBox_Header">
-                            <h2>{'Class'}</h2>
-                            <h2>{'Avg'}</h2>
-                            <h2>{'Asgmts'}</h2>
-                            <h2>{'Tests'}</h2>
+                            <h2 onClick={()=>this.sortBy('class_name', 'alpha', 'classList')}>{'Class'}</h2>
+                            <h2 onClick={()=>this.sortBy('average', 'number', 'classList')} >{'Avg'}</h2>
+                            <h2 onClick={()=>this.sortBy('assignments', 'number', 'classList')} >{'Asgmts'}</h2>
+                            <h2 onClick={()=>this.sortBy('tests', 'number', 'classList')} >{'Tests'}</h2>
                         </div>
                         <div className='InfoBox_Content'>
                             {info}
@@ -191,8 +241,8 @@ class InfoBox extends Component {
                 return (
                     <div>
                         <div className="InfoBox_Header">
-                            <h2>{'Test'}</h2>
-                            <h2>{'Max'}</h2>
+                            <h2 onClick={()=>this.sortBy('description', 'alpha', 'tests')} >{'Test'}</h2>
+                            <h2 onClick={()=>this.sortBy('max_score', 'number', 'tests')} >{'Max'}</h2>
                             <h2>{'Due'}</h2>
                             <button onClick={() => this.openModal('addAssignment', { kind: 'test' })}>Add</button>
                         </div>
@@ -216,8 +266,8 @@ class InfoBox extends Component {
                 return (
                     <div>
                         <div className="InfoBox_Header">
-                            <h2>{'Asgmt'}</h2>
-                            <h2>{'Max'}</h2>
+                            <h2 onClick={()=>this.sortBy('description', 'number', 'assignments')} >{'Asgmt'}</h2>
+                            <h2 onClick={()=>this.sortBy('max_score', 'number', 'assignments')} >{'Max'}</h2>
                             <h2>{'Due'}</h2>
                             <button onClick={() => this.openModal('addAssignment', { kind: 'assignment' })}>Add</button>
                         </div>
@@ -245,10 +295,10 @@ class InfoBox extends Component {
                 return (
                     <div>
                         <div className="InfoBox_Header">
-                            <h2>{'First'}</h2>
-                            <h2>{'Last'}</h2>
-                            <h2>{'Tests'}</h2>
-                            <h2>{'Asgmts'}</h2>
+                            <h2 onClick={()=>this.sortBy('first_name', 'alpha', 'students')} >{'First'}</h2>
+                            <h2 onClick={()=>this.sortBy('last_name', 'alpha', 'students')} >{'Last'}</h2>
+                            <h2 onClick={()=>this.sortBy('tests_avg', 'number', 'students')} >{'Tests'}</h2>
+                            <h2 onClick={()=>this.sortBy('assignments_avg', 'number', 'students')} >{'Asgmts'}</h2>
                         </div>
                         <div className='InfoBox_Content'>
                             {info}
@@ -273,10 +323,10 @@ class InfoBox extends Component {
                 return (
                     <div>
                         <div className="InfoBox_Header">
-                            <h2>{'Test'}</h2>
-                            <h2>{'Score'}</h2>
-                            <h2>{'Max'}</h2>
-                            <h2>{'Percent'}</h2>
+                            <h2 onClick={()=>this.sortBy('description', 'alpha', 'tests')} >{'Test'}</h2>
+                            <h2 onClick={()=>this.sortBy('score', 'number', 'tests')} >{'Score'}</h2>
+                            <h2 onClick={()=>this.sortBy('max_score', 'number', 'tests')} >{'Max'}</h2>
+                            <h2 onClick={()=>this.sortBy('average', 'number', 'tests')} >{'Percent'}</h2>
                         </div>
                         <div className='InfoBox_Content'>
                             {info}
@@ -301,10 +351,10 @@ class InfoBox extends Component {
                 return (
                     <div>
                         <div className="InfoBox_Header">
-                            <h2>{'Asgmt'}</h2>
-                            <h2>{'Score'}</h2>
-                            <h2>{'Max'}</h2>
-                            <h2>{'Percent'}</h2>
+                            <h2 onClick={()=>this.sortBy('description', 'alpha', 'assignments')} >{'Asgmt'}</h2>
+                            <h2 onClick={()=>this.sortBy('score', 'number', 'assignments')} >{'Score'}</h2>
+                            <h2 onClick={()=>this.sortBy('max_score', 'number', 'assignments')} >{'Max'}</h2>
+                            <h2 onClick={()=>this.sortBy('average', 'number', 'assignments')} >{'Percent'}</h2>
                         </div>
                         <div className='InfoBox_Content'>
                             {info}
@@ -330,6 +380,7 @@ class InfoBox extends Component {
                     editMark={this.editMark}
                     deleteAssignment={this.deleteAssignment}
                 />
+                <button onClick={()=>this.sortBy('class_name', 'alpha')}>SortBy</button>
             </div>
         )
     }
