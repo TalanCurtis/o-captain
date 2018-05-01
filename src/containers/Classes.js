@@ -18,13 +18,9 @@ class Classes extends Component {
         // get user id then get class info for that user.       
         this.props.getUser().then(() => axios.get('/api/classes/' + this.props.user.id).then(res => {; this.setState({ classList: res.data }) }))
     }
-    test() {
-        console.log("props", this.props)
-        console.log("state", this.state)
-    }
+
 
     sort(sortedList, stateName){
-        console.log('sort:', sortedList)
         this.setState({[stateName]: sortedList})
     }
 
@@ -37,7 +33,6 @@ class Classes extends Component {
                     infoList={this.state.classList}
                     sort={this.sort}
                 />
-                {/* <button onClick={() => this.test()}>Props</button> */}
             </div>
         )
     }

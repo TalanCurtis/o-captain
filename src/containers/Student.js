@@ -20,7 +20,6 @@ class Student extends Component {
         const { classId, student_id } = this.props.match.params
 
         axios.get('/api/class/' + classId * 1 + '/student/' + student_id * 1).then((res) => {
-            console.log('res: ', res.data)
             this.setState({
                 tests: res.data.tests,
                 assignments: res.data.assignments,
@@ -28,19 +27,11 @@ class Student extends Component {
             })
         })
     }
-    test() {
-        // const { classID, student_id } = this.props.match.params
-
-        console.log("props", this.props)
-        console.log("state", this.state)
-
-    }
 
     refreshLists() {
         const { classId, student_id } = this.props.match.params
 
         axios.get('/api/class/' + classId * 1 + '/student/' + student_id * 1).then((res) => {
-            console.log('res: ', res.data)
             this.setState({
                 tests: res.data.tests,
                 assignments: res.data.assignments
@@ -49,7 +40,6 @@ class Student extends Component {
     }
 
     sort(sortedList, stateName){
-        console.log('sort:', sortedList)
         this.setState({[stateName]: sortedList})
     }
 
@@ -67,7 +57,6 @@ class Student extends Component {
                     refreshLists={this.refreshLists}
                     sort={this.sort}
                 />
-                {/* <button onClick={() => this.test()}>test</button> */}
             </div>
         )
     }

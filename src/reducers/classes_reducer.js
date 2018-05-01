@@ -11,8 +11,7 @@ const ADD_ASSIGNMENT = 'ADD_ASSIGNMENT'
 // Action Builders
 export function addAssignment(body) {
     let payload = axios.post('/api/add/assignment', body).then(res => {
-        console.log('response: ', res)
-        console.log('response: ', res.data)
+
         return res.data
     })
     return {
@@ -21,7 +20,6 @@ export function addAssignment(body) {
     }
 }
 export function getClasses(id) {
-    console.log('getClasses')
     return {
         type: GET_CLASSES,
         payload: 'classes'

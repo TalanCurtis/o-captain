@@ -11,11 +11,7 @@ class Header extends Component {
         this.props.getUser()
     }
 
-    handleLogout() {
-        console.log('LogOut pushed')
-    }
     handleBack() {
-        console.log('Back pushed')
         this.props.history.goBack()
     }
 
@@ -26,7 +22,7 @@ class Header extends Component {
                 <div className='title'>
                     <h1>{this.props.title}</h1>
                 </div>
-                    <button className='LogoutButton' onClick={() => this.handleLogout()}>
+                    <button className='LogoutButton'>
                      <Link to='/' >
                         
                         <img src={logout} alt="" height='30' width='30' />
@@ -45,5 +41,4 @@ function mapStateToProps(state) {
     return state
 }
 
-// export default connect(mapStateToProps, outputActions)(Header);
 export default withRouter(connect(mapStateToProps, outputActions)(Header));

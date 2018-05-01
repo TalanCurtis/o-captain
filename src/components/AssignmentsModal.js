@@ -18,10 +18,6 @@ class AssignmentsModal extends Component {
         })
     }
 
-    test() {
-        console.log('props: ', this.props)
-        console.log('state: ', this.state)
-    }
     renderSwitch(key) {
         let modalDisplay = []
         switch (key) {
@@ -121,7 +117,6 @@ class AssignmentsModal extends Component {
     }
 
     render() {
-        // console.log('modal props', this.props)
         return (
             <Modal
                 isOpen={!!this.props.displayAssignmentsModal}
@@ -131,7 +126,6 @@ class AssignmentsModal extends Component {
                 className='AssignmentsModal'
             >
                 {this.renderSwitch(this.props.modalRenderSwitch)}
-                {/* <button onClick={() => this.test()}>Props</button> */}
 
             </Modal>
         )

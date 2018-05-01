@@ -26,14 +26,12 @@ class Class extends Component {
         })
         // Go get Students from database
         axios.get('/api/class/students/' + this.props.match.params.classId * 1).then((res) => {
-            console.log('response from students: ', res.data)
             this.setState({
                 students: res.data
             })
         })
         // Go get class info
         axios.get('/api/class/info/'+ this.props.match.params.classId * 1).then((res) => {
-            console.log('response from class info: ', res.data)
             this.setState({
                 class_info: res.data[0]
             })
@@ -50,20 +48,14 @@ class Class extends Component {
         })
         // Go get Students from database
         axios.get('/api/class/students/' + this.props.match.params.classId * 1).then((res) => {
-            console.log('response from students: ', res.data)
             this.setState({
                 students: res.data
             })
         })
     }
 
-    test() {
-        console.log('class props: ',this.props)
-        console.log('class state: ',this.state)
-    }
 
     sort(sortedList, stateName){
-        console.log('sort:', sortedList)
         this.setState({[stateName]: sortedList})
     }
 
@@ -73,7 +65,6 @@ class Class extends Component {
         return (
             <div className='Class'>
                 <Header title={this.state.class_info.class_name} />
-                {/* <button onClick={() => this.test()}>Props</button> */}
                 
                 <InfoBox renderSwitch='Tests'
                     infoList={this.state.tests}

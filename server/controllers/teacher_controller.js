@@ -151,24 +151,17 @@ module.exports = {
             db.enrollment.find({
                 class_id: class_id
             }).then(students => {
-                // console.log(student)
                 students.forEach(student => {
                     //score, date_received, notes, assignment_id, user_id
-                    console.log('mark to make', [null, 0, '', dbResponse[0].id, student.user_id])
                     stack.push(db.new.add_mark(null, 0, '', dbResponse[0].id, student.user_id))
                 })
                 Promise.all(stack).then(response => {
-                    //console.log('hello')
                     res.status(200).send(dbResponse)
                 })
             }).catch(console.log)
-            // console.log('dbResponse: ', dbResponse)
-            // console.log('dbResponse: ', dbResponse[0].id)
-            //res.status(200).send(dbResponse)
         }).catch(console.log)
     },
     updateAssignment: (req, res, next) => {
-        // res.status(200).send('hello')
         const { kind, max_score, description, due_date, class_id, id } = req.body
         const db = req.app.get('db')
         db.new.update_assignment([max_score, description, id]).then(dbResponse => {
@@ -176,7 +169,6 @@ module.exports = {
         })
     },
     editMark: (req, res, next) => {
-        // res.status(200).send('hello')
         const { score, id } = req.body
         const db = req.app.get('db')
         db.new.edit_mark([score, id]).then(dbResponse => {
@@ -184,7 +176,6 @@ module.exports = {
         })
     },
     deleteAssignment: (req, res, next) => {
-        // res.status(200).send('hello')
         const { id } = req.body
         const db = req.app.get('db')
         db.new.delete_assignment([id]).then(dbResponse => {

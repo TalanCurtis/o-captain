@@ -18,23 +18,16 @@ class InfoBox extends Component {
         this.editMark = this.editMark.bind(this)
         this.deleteAssignment = this.deleteAssignment.bind(this)
     }
-    test() {
-        console.log(this.props )
 
-    }
-    // runSort(newOrder){
-    //     ()=>this.props.sort(newOrder)
-    // }
+
     sortBy(key, kind, stateName) {
         // sortBy takes in the state 'key' you want to reorder and  'kind' numerc and alpha.
-        console.log('sort by: ', key, kind)
         let newOrder = []
         switch (kind) {
             case 'alpha':
                 newOrder = this.props.infoList.slice().sort((a, b) => {
                     let textA = a[key].toLowerCase();
                     let textB = b[key].toLowerCase();
-                    // return (this.state.sortByToggle ? (textA > textB) : (textA < textB))
                     if (this.state.sortByToggle) {
                         if (textA > textB) { return -1 }
                         if (textA < textB) { return 1 }
@@ -45,14 +38,12 @@ class InfoBox extends Component {
                     return 0;
                 })
                 this.setState({ sortByToggle: !this.state.sortByToggle })
-                // console.log(newOrder)
                 this.props.sort(newOrder, stateName)
                 break;
             case 'number':
                 newOrder = this.props.infoList.slice().sort((a, b) => {
                     let textA = a[key];
                     let textB = b[key];
-                    //return (this.state.sortByToggle ? (textA > textB) : (textA < textB))
                     if (this.state.sortByToggle) {
                         if (textA > textB) { return -1 }
                         if (textA < textB) { return 1 }
@@ -64,21 +55,16 @@ class InfoBox extends Component {
                 })
                 this.setState({ sortByToggle: !this.state.sortByToggle })
                 this.props.sort(newOrder, stateName)
-                // this.props.sort(newOrder)  
-                // this.runSort(newOrder)              
                 break;
 
             default:
                 return console.log('sort by switch defaulted')
         }
-        console.log('state: ', this.state)
     }
     /// new modal
     /////////////
     ////////////
     openModal(key, itemToEdit) {
-        console.log('openModal', itemToEdit)
-
         this.setState({
             displayAssignmentsModal: true,
             itemToEdit: itemToEdit,
@@ -86,7 +72,6 @@ class InfoBox extends Component {
         })
     }
     cancelModal() {
-        console.log('cancel add assignment')
         this.setState({
             displayAssignmentsModal: false,
             itemToEdit: {}
@@ -94,18 +79,14 @@ class InfoBox extends Component {
     }
     addAssignment(assignment) {
         let body = Object.assign({}, assignment, { class_id: this.props.class_id })
-        console.log('body: ', body)
         axios.post('/api/class/assignments/add', body).then(res => {
             this.props.refreshLists()
         })
         this.setState({ displayAssignmentsModal: false })
     }
     editAssignment(assignment) {
-        console.log('edit assignment', assignment)
         let body = assignment
-        console.log('update body', body)
         axios.put('/api/class/assignments/update', body).then(res => {
-            console.log(' update res: ', res.data)
             this.props.refreshLists()
         })
         this.setState({
@@ -114,8 +95,6 @@ class InfoBox extends Component {
         })
     }
     editMark(mark) {
-        console.log('edit mark: ', mark)
-        // let body = Object.assign({}, mark, {class_id: this.props.match.params.classId})
         let body = {
             id: mark.mark_id,
             score: mark.score,
@@ -124,10 +103,7 @@ class InfoBox extends Component {
             assignment_id: mark.assignment_id,
             user_id: mark.user_id
         }
-        console.log(body)
-        console.log('this need to work',this.props)
         axios.put('/api/class/student/marks/' + mark.mark_id, body).then(res => {
-            console.log(res.data)
             this.props.refreshLists()
         })
         this.setState({
@@ -137,14 +113,11 @@ class InfoBox extends Component {
 
     }
     deleteAssignment(assignment) {
-        console.log('deleteAssignment assignment', assignment)
         // When using delete with a body it needs to be in a data: key
         let body = {
             data: { id: assignment.id }
         }
-        console.log('deleteAssignment body', body)
         axios.delete('/api/class/assignments/delete', body).then(res => {
-            console.log(' delete res: ', res.data)
             this.props.refreshLists()
         })
         this.setState({
@@ -156,10 +129,7 @@ class InfoBox extends Component {
     //////////////
     //////////////
     //////////////
-
-    updateScore() {
-        console.log('updateScore')
-    }
+ 
     renderSwitch(key) {
         let info = []
         // Chart variables
@@ -198,7 +168,6 @@ class InfoBox extends Component {
                         backgroundColor: colors
                     }]
                 }
-                // console.log('thisis data', data)
                 // Chart Options
                 options = {
                     scales: {
@@ -209,12 +178,13 @@ class InfoBox extends Component {
                             }
                         }]
                     },
-                    // maintainAspectRatio: false
                 }
                 return (
                     <div>
-                        <div>
-                            <Bar options={options} data={data} />
+                        <div className='chart_container'>
+                            <div>
+                                <Bar options={options} data={data} maintainAspectRatio='false' />
+                            </div>
                         </div>
                         <div className="InfoBox_Header">
                             <h2 onClick={()=>this.sortBy('class_name', 'alpha', 'classList')}>{'Class'}</h2>
@@ -228,13 +198,14 @@ class InfoBox extends Component {
                     </div>
                 )
             case "Tests":
-                //console.log(this.props)
                 info = this.props.infoList.map((x, i) => {
                     return (
-                        <div key={i} className='InfoBox_Text' onClick={() => this.openModal('editAssignment', x)}>
-                            <h3>{x.description}</h3>
-                            <h3>{x.max_score}</h3>
-                            <h3>{x.due_date}</h3>
+                        <div key={i}>
+                            <div  className='InfoBox_Text' onClick={() => this.openModal('editAssignment', x)}>
+                                <h3>{x.description}</h3>
+                                <h3>{x.max_score}</h3>
+                                <h3>{x.due_date}</h3>
+                            </div>
                         </div>
                     )
                 })
@@ -255,11 +226,12 @@ class InfoBox extends Component {
             case "Assignments":
                 info = this.props.infoList.map((x, i) => {
                     return (
-                        <div key={i} className='InfoBox_Text' onClick={() => this.openModal('editAssignment', x)}>
-                            <h3>{x.description}</h3>
-                            <h3>{x.max_score}</h3>
-                            {/* {(x.max_score > 65) ? <h3>{x.max_score}</h3> : <h3 style={{ "color": "red" }}>{x.max_score}</h3>} */}
-                            <h3>{x.due_date}</h3>
+                        <div key={i} >
+                            <div className='InfoBox_Text' onClick={() => this.openModal('editAssignment', x)}>
+                                <h3>{x.description}</h3>
+                                <h3>{x.max_score}</h3>
+                                <h3>{x.due_date}</h3>
+                            </div>
                         </div>
                     )
                 })
@@ -285,9 +257,7 @@ class InfoBox extends Component {
                                 <h3>{x.first_name}</h3>
                                 <h3>{x.last_name}</h3>
                                 {(x.tests_avg > 65) ? <h3>{x.tests_avg}</h3> : <h3 style={{ "color": "red" }}>{x.tests_avg}</h3>}
-                                {/* <h3>{x.tests_avg}</h3> */}
                                 {(x.assignments_avg > 65) ? <h3>{x.assignments_avg}</h3> : <h3 style={{ "color": "red" }}>{x.assignments_avg}</h3>}                                
-                                {/* <h3>{x.assignments_avg}</h3> */}
                             </div>
                         </Link>
                     )
@@ -308,15 +278,14 @@ class InfoBox extends Component {
             case 'StudentTests':
                 info = this.props.infoList.map((x, i) => {
                     return (
-                        <div className='InfoBox_Text' key={i} onClick={()=>this.openModal('editMark', x)}>
-                            <h3>{x.description}</h3>
-                            {(x.score > 65) ? <h3>{x.score}</h3> : <h3 style={{ "color": "red" }}>{x.score}</h3>}                                
-                            {/* {(x.max_score > 65) ? <h3>{x.max_score}</h3> : <h3 style={{ "color": "red" }}>{x.max_score}</h3>}                                 */}
-                            <h3>{x.max_score}</h3> 
-                            {(x.average > 65) ? <h3>{x.average}</h3> : <h3 style={{ "color": "red" }}>{x.average}</h3>}                                
-                            {/* <h3>{x.score}</h3> */}
-                            {/* <h3>{x.max_score}</h3> */}
-                            {/* <h3>{x.average}</h3> */}
+                        <div key={i}>
+                            <div className='InfoBox_Text' onClick={()=>this.openModal('editMark', x)}>
+                                <h3>{x.description}</h3>
+                                {(x.score > 65) ? <h3>{x.score}</h3> : <h3 style={{ "color": "red" }}>{x.score}</h3>}                                
+                                <h3>{x.max_score}</h3> 
+                                {(x.average > 65) ? <h3>{x.average}</h3> : <h3 style={{ "color": "red" }}>{x.average}</h3>}                                
+
+                            </div>
                         </div>
                     )
                 })
@@ -336,15 +305,13 @@ class InfoBox extends Component {
             case 'StudentAssignments':
                 info = this.props.infoList.map((x, i) => {
                     return (
-                        <div className='InfoBox_Text' key={i} onClick={()=>this.openModal('editMark', x)}>
-                            <h3>{x.description}</h3>
-                            {(x.score > 65) ? <h3>{x.score}</h3> : <h3 style={{ "color": "red" }}>{x.score}</h3>}                                
-                            <h3>{x.max_score}</h3>
-                            {(x.average > 65) ? <h3>{x.average}</h3> : <h3 style={{ "color": "red" }}>{x.average}</h3>}                                
-                            
-                            {/* <h3>{x.score}</h3>
-                            <h3>{x.max_score}</h3>
-                            <h3>{x.average}</h3> */}
+                        <div key={i}>
+                            <div className='InfoBox_Text'  onClick={()=>this.openModal('editMark', x)}>
+                                <h3>{x.description}</h3>
+                                {(x.score > 65) ? <h3>{x.score}</h3> : <h3 style={{ "color": "red" }}>{x.score}</h3>}                                
+                                <h3>{x.max_score}</h3>
+                                {(x.average > 65) ? <h3>{x.average}</h3> : <h3 style={{ "color": "red" }}>{x.average}</h3>}                                
+                            </div>
                         </div>
                     )
                 })
